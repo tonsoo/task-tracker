@@ -3,8 +3,9 @@
 Um pacote Laravel que transforma mensagens recebidas do WhatsApp em tarefas acionáveis em qualquer gerenciador configurado (Trello, Linear, sistemas internos) usando extração de intenção por IA. Ele escuta webhooks do WhatsApp, interpreta mensagens via adapters, classifica a intenção com um LLM e orquestra operações no gerenciador de tarefas (criar/atualizar/fechar, adicionar contexto, etc.).
 
 ## Recursos
-- **Ingestão de webhooks do WhatsApp** via `routes/api.php` para `MessagingController`
+- **Ingestão de webhooks de mensageria** via `routes/api.php` para `MessagingWebhookController`
 - **Padrão Adapter** para plataformas de mensagens (`MessagingAdapter`), com `WhatsAppAdapter` embutido
+- **Registro automático de webhooks** para drivers de mensageria configurados
 - **Análise de intenção por IA** usando `OpenAI` através do contrato `LLMClient`
 - **Orquestração inteligente de tarefas** para deduplicar relatos e atualizar itens existentes
 - **Integrações pluggable** via `TaskDriver` (Trello incluso por padrão)
@@ -38,6 +39,7 @@ TRELLO_LIST_ID=...
 
 OPENAI_API_KEY=...
 OPENAI_MODEL=gpt-4.1-mini
+TASK_TRACKER_AI_DRIVER=openai
 ```
 
 4. **Rotas de webhook**
@@ -56,7 +58,7 @@ php artisan queue:work
   - Registra `WhatsAppAdapter`
   - Carrega rotas e publica config
 
-- **HTTP**: `routes/api.php` → `MessagingController`
+- **HTTP**: `routes/api.php` → `MessagingWebhookController`
   - Verifica webhook (`whatsappAuth()`)
   - Interpreta payload via `WhatsAppAdapter` e despacha `ProcessIncomingMessageJob`
 
@@ -69,7 +71,7 @@ php artisan queue:work
 - **Integrações**: `TaskDriver` (cria o manager) + `TaskManager`
 
 ## Ciclo (alto nível)
-1. WhatsApp envia webhook → `MessagingController@whatsapp`
+1. Plataforma envia webhook → `MessagingWebhookController@ingest`
 2. `WhatsAppAdapter` converte para `IncomingMessage[]`
 3. Cada mensagem é enfileirada como `ProcessIncomingMessageJob` (lock idempotente por id da mensagem quando houver)
 4. `ProcessIncomingMessage` usa `AiIntentAnalyzer` para obter `StructuredIntent`

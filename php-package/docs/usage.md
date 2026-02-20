@@ -1,11 +1,11 @@
 # Uso
 
 ## Endpoints de webhook
-- GET `/webhooks/messaging/whatsapp` → verificação (responde com `hub_challenge` quando o token confere)
-- POST `/webhooks/messaging/whatsapp` → eventos de mensagem
+- GET `/webhooks/messaging/{driver}` → verificação (dependente do driver)
+- POST `/webhooks/messaging/{driver}` → eventos de mensagem
 
 ## Fluxo de processamento
-1. `MessagingController@whatsapp` interpreta o payload via `WhatsAppAdapter`
+1. `MessagingWebhookController@ingest` interpreta o payload via o driver configurado
 2. Despacha `ProcessIncomingMessageJob` por mensagem
 3. `ProcessIncomingMessage` → `AiIntentAnalyzer` → `StructuredIntent`
 4. `TaskOrchestrator` aplica regras de negócio usando o `TaskManager` configurado

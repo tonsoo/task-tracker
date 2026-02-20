@@ -13,7 +13,7 @@ Este guia ajuda a configurar o WhatsApp Cloud API para receber mensagens no seu 
 - **Verificação de webhook**:
   - A Meta enviará `hub.mode=subscribe`, `hub.verify_token`, `hub.challenge`.
   - Garanta que `WHATSAPP_SECRET` (no `.env`) coincida com o verify token configurado no app.
-  - O controller `MessagingController@whatsappAuth` responde com `hub_challenge` quando válido.
+- O controller `MessagingWebhookController@auth` responde com `hub_challenge` quando válido (rota `/webhooks/messaging/whatsapp`).
 - **Permissões e assinatura**:
   - Conceda permissão `messages`.
   - Assine o campo `messages` para o seu `phone_number_id` no app.
@@ -31,7 +31,7 @@ WHATSAPP_SECRET=seu_verify_token
 
 ## Fluxo de recebimento
 - A Meta envia o payload ao `POST /webhooks/messaging/whatsapp`.
-- O `WhatsAppAdapter` converte para `IncomingMessage[]` (apenas mensagens de texto).
+- O `WhatsAppDriver` usa `WhatsAppAdapter` e converte para `IncomingMessage[]` (apenas mensagens de texto).
 - Cada mensagem é processada via fila por `ProcessIncomingMessageJob`.
 - O uso do `AiIntentAnalyzer` e `TaskOrchestrator` está detalhado em:
   - [`docs/ai.md`](ai.md)
@@ -39,7 +39,7 @@ WHATSAPP_SECRET=seu_verify_token
   - [`docs/lifecycle.md`](lifecycle.md)
 
 ## Debug e testes
-- Verifique logs de recebimento no `MessagingController`.
+- Verifique logs de recebimento no `MessagingWebhookController`.
 - Para testar rapidamente, envie um cURL simulando o callback (ajuste o host):
 ```bash
 curl -X POST "https://seu-host.com/webhooks/messaging/whatsapp" \

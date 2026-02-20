@@ -1,16 +1,33 @@
 # Estendendo o Pacote
 
 ## Substituir o cliente LLM
-Faça o bind da sua implementação de `LLMClient`.
+Implemente um `AiDriver` e registre no config.
 
 ```php
+use Tonso\TaskTracker\Contracts\AiDriver;
 use Tonso\TaskTracker\AI\Contracts\LLMClient;
 
-$this->app->singleton(LLMClient::class, fn () => new MyLLMClient(...));
+class MyAiDriver implements AiDriver
+{
+    public function makeClient(array $config): LLMClient
+    {
+        return new MyLLMClient(...);
+    }
+}
+
+// config/task-tracker.php
+'ai' => [
+    'driver' => 'custom',
+    'drivers' => [
+        'custom' => [
+            'driver' => MyAiDriver::class,
+        ],
+    ],
+],
 ```
 
-## Adicionar um novo adapter de mensageria
-Implemente `MessagingAdapter` e converta o payload da sua plataforma em DTOs `IncomingMessage`. Faça o bind onde você processa o webhook.
+## Adicionar um novo driver de mensageria
+Implemente `MessagingDriver` e converta o payload da sua plataforma em DTOs `IncomingMessage`. Registre o driver no config em `messaging.drivers`.
 
 ## Customizar a orquestração
 Estenda ou decore `TaskOrchestrator` para alterar as regras de roteamento de `bug_report`, `feature_request` ou `bug_fixed`.

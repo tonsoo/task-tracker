@@ -4,29 +4,35 @@ return [
 
     'messaging' => [
 
-        'whatsapp' => [
-            /**
-             * The token from whatsapp api
-             */
-            'token' => env('WHATSAPP_TOKEN'),
+        'drivers' => [
 
-            /**
-             * Information about the phone number registered on your whatsapp settings
-             */
-            'from' => [
+            'whatsapp' => [
+                /**
+                 * The messaging driver class.
+                 */
+                'driver' => Tonso\TaskTracker\Messaging\Drivers\WhatsAppDriver::class,
 
-                'number' => env('WHATSAPP_FROM_NUMBER'),
+                /**
+                 * The token from whatsapp api
+                 */
+                'token' => env('WHATSAPP_TOKEN'),
 
-                'id' => env('WHATSAPP_FROM_ID'),
+                /**
+                 * Information about the phone number registered on your whatsapp settings
+                 */
+                'from' => [
+                    'number' => env('WHATSAPP_FROM_NUMBER'),
+                    'id' => env('WHATSAPP_FROM_ID'),
+                ],
 
+                /**
+                 * An arbitrary secret you will provide on your settings for webhooks for whatsapp
+                 * This is used for webhook validation
+                 */
+                'secret' => env('WHATSAPP_SECRET'),
             ],
 
-            /**
-             * An arbitrary secret you will provide on your settings for webhooks for whatsapp
-             * This is used for webhook validation
-             */
-            'secret' => env('WHATSAPP_SECRET'),
-        ]
+        ],
 
     ],
 
@@ -71,17 +77,26 @@ return [
          */
         'similarity_threshold' => 0.8,
 
-        'openai' => [
+        'driver' => env('TASK_TRACKER_AI_DRIVER', 'openai'),
 
-            /**
-             * Api key for open api, can be found here: https://platform.openai.com/api-keys
-             */
-            'key' => env('OPENAI_API_KEY'),
+        'drivers' => [
 
-            /**
-             * The open api model to use
-             */
-            'model' => env('OPENAI_MODEL', 'gpt-4.1-mini'),
+            'openai' => [
+                /**
+                 * The AI driver class.
+                 */
+                'driver' => Tonso\TaskTracker\AI\Drivers\OpenAIDriver::class,
+
+                /**
+                 * Api key for open api, can be found here: https://platform.openai.com/api-keys
+                 */
+                'key' => env('OPENAI_API_KEY'),
+
+                /**
+                 * The open api model to use
+                 */
+                'model' => env('OPENAI_MODEL', 'gpt-4.1-mini'),
+            ],
 
         ],
 

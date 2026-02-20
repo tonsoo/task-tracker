@@ -5,13 +5,14 @@ namespace Tonso\TaskTracker;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 use Tonso\TaskTracker\AI\AiIntentAnalyzer;
-use Tonso\TaskTracker\AI\Clients\OpenAILLMClient;
 use Tonso\TaskTracker\AI\Contracts\LLMClient;
 use Tonso\TaskTracker\Console\Commands\MonitorIdleTranscripts;
+use Tonso\TaskTracker\Contracts\AiDriver;
 use Tonso\TaskTracker\Contracts\TaskDriver;
 use Tonso\TaskTracker\Contracts\TaskManager;
 use Tonso\TaskTracker\Jobs\ProcessMessageBatchJob;
 use Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter;
+use Tonso\TaskTracker\Messaging\MessagingDriverRegistry;
 use Tonso\TaskTracker\Models\IncomingMessage;
 use Tonso\TaskTracker\Services\Task\TaskOrchestrator;
 use Tonso\TaskTracker\Services\WhatsappService;
@@ -47,11 +48,26 @@ class TaskTrackerServiceProvider extends ServiceProvider
             'task-tracker'
         );
 
-        $this->app->singleton(LLMClient::class, function () {
-            return new OpenAILLMClient(
-                apiKey: config('task-tracker.ai.openai.key'),
-                model: config('task-tracker.ai.openai.model', 'gpt-4.1-mini'),
-            );
+        $this->app->singleton(AiDriver::class, function ($app) {
+            $driverKey = config('task-tracker.ai.driver', 'openai');
+            $driverConfig = config("task-tracker.ai.drivers.$driverKey", []);
+            $driverClass = $driverConfig['driver'] ?? null;
+
+            if (!$driverClass) {
+                throw new \RuntimeException("AI driver [$driverKey] does not define a driver class.");
+            }
+
+            return $app->make($driverClass);
+        });
+
+        $this->app->singleton(LLMClient::class, function ($app) {
+            $driverKey = config('task-tracker.ai.driver', 'openai');
+            $driverConfig = config("task-tracker.ai.drivers.$driverKey", []);
+
+            /** @var AiDriver $driver */
+            $driver = $app->make(AiDriver::class);
+
+            return $driver->makeClient($driverConfig);
         });
 
         $this->app->singleton(TaskDriver::class, function ($app) {
@@ -83,6 +99,12 @@ class TaskTrackerServiceProvider extends ServiceProvider
         $this->app->singleton(ProcessIncomingMessage::class);
 
         $this->app->singleton(WhatsAppAdapter::class);
+        $this->app->singleton(MessagingDriverRegistry::class, function ($app) {
+            return new MessagingDriverRegistry(
+                container: $app,
+                drivers: config('task-tracker.messaging.drivers', [])
+            );
+        });
     }
 
     public function boot(): void

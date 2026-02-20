@@ -11,8 +11,8 @@ class WhatsappService
 
     public function __construct()
     {
-        $this->token = config('task-tracker.messaging.whatsapp.token');
-        $this->fromId = config('task-tracker.messaging.whatsapp.from.id');
+        $this->token = config('task-tracker.messaging.drivers.whatsapp.token');
+        $this->fromId = config('task-tracker.messaging.drivers.whatsapp.from.id');
     }
 
     public function sendMessage(string $message, string $to): void

@@ -18,5 +18,6 @@
 `AiIntentAnalyzer::findMatchInBatch($newIntent, $candidates)` retorna `{ match, task_id, confidence, reason }`, usado pelo `TaskOrchestrator` para decidir se atualiza uma tarefa existente.
 
 ## Configuração
-- Modelo e chave via `ai.openai.*`
+- Driver via `ai.driver`
+- Modelo e chave via `ai.drivers.openai.*`
 - Limiares: `ai.similarity_threshold`

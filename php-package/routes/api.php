@@ -1,15 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Tonso\TaskTracker\Http\Controllers\MessagingController;
+use Tonso\TaskTracker\Http\Controllers\MessagingWebhookController;
 use Tonso\TaskTracker\Http\Controllers\TranscriptController;
 use Tonso\TaskTracker\Http\Middleware\ValidateBearerToken;
 
 Route::group(['prefix' => 'webhooks'], function () {
 
     Route::group(['prefix' => 'messaging'], function () {
-        Route::get('whatsapp', [MessagingController::class, 'whatsappAuth'])->name('messaging.whatsapp.auth');
-        Route::post('whatsapp', [MessagingController::class, 'whatsapp'])->name('messaging.whatsapp');
+        $drivers = array_keys(config('task-tracker.messaging.drivers', []));
+
+        foreach ($drivers as $driver) {
+            Route::get($driver, [MessagingWebhookController::class, 'auth'])
+                ->defaults('driver', $driver)
+                ->name("messaging.{$driver}.auth");
+
+            Route::post($driver, [MessagingWebhookController::class, 'ingest'])
+                ->defaults('driver', $driver)
+                ->name("messaging.{$driver}.ingest");
+        }
     });
 
     Route::options('transcribe/{meetingId}', function () {

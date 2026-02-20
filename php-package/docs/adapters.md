@@ -1,38 +1,48 @@
 # Adapters de Mensageria
 
-Adapters traduzem payloads específicos da plataforma para DTOs `IncomingMessage`.
+Drivers traduzem payloads específicos da plataforma para DTOs `IncomingMessage`, usando um Adapter quando necessário.
 
-- Contrato: `Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter`
-- Embutido: `Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter`
+- Contrato do driver: `Tonso\TaskTracker\Messaging\Contracts\MessagingDriver`
+- Contrato do adapter: `Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter`
+- Driver embutido: `Tonso\TaskTracker\Messaging\Drivers\WhatsAppDriver`
+- Adapter embutido: `Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter`
 - DTO: `Tonso\TaskTracker\Messaging\IncomingMessage`
 
-## WhatsAppAdapter
+## WhatsAppDriver
 - Itera `entry[].changes[].value.messages[]`
 - Aceita apenas `type === 'text'`
 - Produz `IncomingMessage(platform: 'whatsapp', senderId, text, rawPayload)`
 
-## Criando um novo adapter
+## Criando um novo driver
 
 ```php
-namespace App\Messaging\Adapters;
+namespace App\Messaging\Drivers;
 
-use Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter;use Tonso\TaskTracker\Models\IncomingMessage;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Tonso\TaskTracker\Messaging\Contracts\MessagingDriver;
 
-final class TelegramAdapter implements MessagingAdapter
+final class TelegramDriver implements MessagingDriver
 {
-    public function parse(array $payload): array
+    public function verify(Request $request): Response
     {
+        return response('', 200);
+    }
+
+    public function parse(Request $request): array
+    {
+        $payload = $request->all();
         // ...mapear o update do Telegram para IncomingMessage[]
         return [
-            new IncomingMessage(
-                platform: 'telegram',
-                senderId: '123',
-                text: '...',
-                rawPayload: $payload,
-            ),
+            [
+                'external_id' => 'abc',
+                'text' => '...',
+                'source' => 'telegram',
+                'processed' => false,
+            ],
         ];
     }
 }
 ```
 
-Faça o bind no seu Service Provider ou injete onde você processa o webhook.
+Registre o driver em `config/task-tracker.php` em `messaging.drivers.*`.
