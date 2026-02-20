@@ -7,7 +7,7 @@ Um pacote Laravel que transforma mensagens recebidas do WhatsApp em tarefas acio
 - **Padrão Adapter** para plataformas de mensagens (`MessagingAdapter`), com `WhatsAppAdapter` embutido
 - **Análise de intenção por IA** usando `OpenAI` através do contrato `LLMClient`
 - **Orquestração inteligente de tarefas** para deduplicar relatos e atualizar itens existentes
-- **Integrações pluggable** via `TaskManager` (Trello incluso por padrão)
+- **Integrações pluggable** via `TaskDriver` (Trello incluso por padrão)
 - **Publicação de config** e configuração por ambiente (`config/task-tracker.php`)
 - **Processamento em fila** com tratamento idempotente de mensagens recebidas
 
@@ -29,7 +29,7 @@ WHATSAPP_FROM_NUMBER=...
 WHATSAPP_FROM_ID=...
 WHATSAPP_SECRET=...
 
-TASK_TRACKER_MANAGER=trello
+TASK_TRACKER_DRIVER=trello
 
 TRELLO_KEY=...
 TRELLO_TOKEN=...
@@ -52,7 +52,7 @@ php artisan queue:work
 ## Arquitetura
 - **Service Provider**: `src/TaskTrackerServiceProvider.php`
   - Faz bind de `LLMClient` para `OpenAILLMClient`
-  - Faz bind do `TaskManager` configurado e do `TaskOrchestrator`
+  - Faz bind do `TaskDriver`, do `TaskManager` e do `TaskOrchestrator`
   - Registra `WhatsAppAdapter`
   - Carrega rotas e publica config
 
@@ -66,7 +66,7 @@ php artisan queue:work
 
 - **Caso de Uso**: `ProcessIncomingMessage` → extrai intenção → delega ao `TaskOrchestrator`
 
-- **Integrações**: `TaskManager` (contrato) + implementações em `src/Integrations/*`
+- **Integrações**: `TaskDriver` (cria o manager) + `TaskManager`
 
 ## Ciclo (alto nível)
 1. WhatsApp envia webhook → `MessagingController@whatsapp`

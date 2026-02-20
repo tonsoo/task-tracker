@@ -30,15 +30,15 @@ return [
 
     ],
 
-    'task_manager' => env('TASK_TRACKER_MANAGER', 'trello'),
+    'task_driver' => env('TASK_TRACKER_DRIVER', 'trello'),
 
-    'task_managers' => [
+    'task_drivers' => [
 
         'trello' => [
             /**
-             * The task manager driver class.
+             * The task driver class.
              */
-            'driver' => Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager::class,
+            'driver' => Tonso\TaskTracker\Integrations\Trello\TrelloDriver::class,
 
             /**
              * Key for your trello account
@@ -60,7 +60,7 @@ return [
              */
             'default_list_id' => env('TRELLO_LIST_ID'),
 
-        ]
+        ],
 
     ],
 

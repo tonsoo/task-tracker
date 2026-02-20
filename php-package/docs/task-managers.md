@@ -2,26 +2,26 @@
 
 O Task Tracker suporta multiplas integracoes via o contrato `TaskManager`. O Trello e fornecido por padrao.
 
-## Selecionar o gerenciador
+## Selecionar o driver
 No `config/task-tracker.php`:
 
 ```php
-'task_manager' => env('TASK_TRACKER_MANAGER', 'trello'),
+'task_driver' => env('TASK_TRACKER_DRIVER', 'trello'),
 ```
 
-## Registrar um gerenciador customizado
-Crie uma classe que implemente `TaskManager` e registre no config:
+## Registrar um driver customizado
+Crie uma classe que implemente `TaskDriver` e retorne um `TaskManager`:
 
 ```php
-'task_managers' => [
+'task_drivers' => [
     'custom' => [
-        'driver' => App\\Integrations\\MyTaskManager::class,
+        'driver' => App\\Integrations\\MyTaskDriver::class,
     ],
 ],
 ```
 
 ## Contrato esperado
-Um `TaskManager` deve:
+Um `TaskDriver` deve criar um `TaskManager`. Um `TaskManager` deve:
 - Listar tarefas existentes (`tasks`)
 - Criar tarefas (`createTask`)
 - Atualizar tarefas existentes com contexto (`updateTask`)
@@ -33,5 +33,6 @@ O `toSlimArray` deve retornar ao menos:
 `id`, `title`, `summary`.
 
 ## Implementacao Trello (padrao)
-- Classe: `Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager`
-- Configuracao: `task_managers.trello.*`
+- Driver: `Tonso\TaskTracker\Integrations\Trello\TrelloDriver`
+- Manager: `Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager`
+- Configuracao: `task_drivers.trello.*`

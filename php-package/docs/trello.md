@@ -16,5 +16,5 @@
 - `feature_request`: cria um novo card
 
 ## Configuração
-- Defina `TASK_TRACKER_MANAGER=trello`
+- Defina `TASK_TRACKER_DRIVER=trello`
 - Defina `TRELLO_KEY`, `TRELLO_TOKEN`, `TRELLO_BOARD_ID`, `TRELLO_LIST_ID`

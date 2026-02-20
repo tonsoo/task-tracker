@@ -4,16 +4,15 @@ namespace Tonso\TaskTracker;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
-use Stevenmaguire\Services\Trello\Client;
 use Tonso\TaskTracker\AI\AiIntentAnalyzer;
 use Tonso\TaskTracker\AI\Clients\OpenAILLMClient;
 use Tonso\TaskTracker\AI\Contracts\LLMClient;
 use Tonso\TaskTracker\Console\Commands\MonitorIdleTranscripts;
+use Tonso\TaskTracker\Contracts\TaskDriver;
 use Tonso\TaskTracker\Contracts\TaskManager;
 use Tonso\TaskTracker\Jobs\ProcessMessageBatchJob;
 use Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter;
 use Tonso\TaskTracker\Models\IncomingMessage;
-use Tonso\TaskTracker\Services\Trello\TrelloService;
 use Tonso\TaskTracker\Services\Task\TaskOrchestrator;
 use Tonso\TaskTracker\Services\WhatsappService;
 use Tonso\TaskTracker\UseCases\ProcessIncomingMessage;
@@ -48,13 +47,6 @@ class TaskTrackerServiceProvider extends ServiceProvider
             'task-tracker'
         );
 
-        $this->app->singleton(Client::class, function () {
-            return new Client([
-                'key'   => config('task-tracker.task_managers.trello.key'),
-                'token' => config('task-tracker.task_managers.trello.token'),
-            ]);
-        });
-
         $this->app->singleton(LLMClient::class, function () {
             return new OpenAILLMClient(
                 apiKey: config('task-tracker.ai.openai.key'),
@@ -62,24 +54,26 @@ class TaskTrackerServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->singleton(TrelloService::class, function ($app) {
-            return new TrelloService(
-                client: $app->make(Client::class),
-                boardId: config('task-tracker.task_managers.trello.board_id'),
-                defaultListId: config('task-tracker.task_managers.trello.default_list_id'),
-            );
+        $this->app->singleton(TaskDriver::class, function ($app) {
+            $driverKey = config('task-tracker.task_driver', 'trello');
+            $driverConfig = config("task-tracker.task_drivers.$driverKey", []);
+            $driverClass = $driverConfig['driver'] ?? null;
+
+            if (!$driverClass) {
+                throw new \RuntimeException("Task driver [$driverKey] does not define a driver class.");
+            }
+
+            return $app->make($driverClass);
         });
 
         $this->app->singleton(TaskManager::class, function ($app) {
-            $managerKey = config('task-tracker.task_manager', 'trello');
-            $managerConfig = config("task-tracker.task_managers.$managerKey", []);
-            $driver = $managerConfig['driver'] ?? null;
+            $driverKey = config('task-tracker.task_driver', 'trello');
+            $driverConfig = config("task-tracker.task_drivers.$driverKey", []);
 
-            if (!$driver) {
-                throw new \RuntimeException("Task manager [$managerKey] does not define a driver class.");
-            }
+            /** @var TaskDriver $driver */
+            $driver = $app->make(TaskDriver::class);
 
-            return $app->make($driver);
+            return $driver->makeManager($driverConfig);
         });
 
         $this->app->singleton(TaskOrchestrator::class);
