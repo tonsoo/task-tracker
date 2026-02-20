@@ -1,13 +1,13 @@
 <?php
 
-namespace Tonso\TrelloTracker\Jobs;
+namespace Tonso\TaskTracker\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Tonso\TrelloTracker\UseCases\ProcessMessageBatch;
+use Tonso\TaskTracker\UseCases\ProcessMessageBatch;
 
 final class ProcessMessageBatchJob implements ShouldQueue
 {

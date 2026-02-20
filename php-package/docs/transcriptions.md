@@ -20,10 +20,10 @@ Este fluxo recebe transcricoes por webhook, consolida o texto e dispara a analis
 ## Como funciona
 - O controller consolida as mensagens usando `timestamp` + `text` como chave de deduplicacao.
 - Itens novos entram com `processed = false`. Itens ja processados permanecem com `processed = true`.
-- Quando um meeting fica inativo por X minutos, o comando `trello-tracker:monitor-idle` enfileira o processamento.
+- Quando um meeting fica inativo por X minutos, o comando `task-tracker:monitor-idle` enfileira o processamento.
 
 ## Agendamento
-O comando `trello-tracker:monitor-idle` roda a cada 30 segundos via scheduler do Laravel. Garanta que o scheduler esteja ativo (cron chamando `php artisan schedule:run`).
+O comando `task-tracker:monitor-idle` roda a cada 30 segundos via scheduler do Laravel. Garanta que o scheduler esteja ativo (cron chamando `php artisan schedule:run`).
 
 ## Comportamento de idempotencia
 - Mensagens ja processadas nao sao reenviadas para a IA.

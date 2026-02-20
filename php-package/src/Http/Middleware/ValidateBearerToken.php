@@ -1,18 +1,19 @@
 <?php
 
-namespace Tonso\TrelloTracker\Http\Middleware;
+namespace Tonso\TaskTracker\Http\Middleware;
 
+use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class ValidateBearerToken
 {
-    public function handle(Request $request, \Closure $next): Response
+    public function handle(Request $request, Closure $next): Response
     {
         $token = $request->bearerToken();
 
-        $expectedToken = config('trello-tracker.transcriptions.secret_key');
+        $expectedToken = config('task-tracker.transcriptions.secret_key');
 
         Log::info("token: $token, expected: $expectedToken");
 

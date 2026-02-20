@@ -1,10 +1,11 @@
 <?php
 
-namespace Tonso\TrelloTracker\AI;
+namespace Tonso\TaskTracker\AI;
 
+use Exception;
 use Illuminate\Support\Facades\Log;
-use Tonso\TrelloTracker\AI\Contracts\LLMClient;
-use Tonso\TrelloTracker\AI\DTO\StructuredIntent;
+use Tonso\TaskTracker\AI\Contracts\LLMClient;
+use Tonso\TaskTracker\AI\DTO\StructuredIntent;
 
 final class AiIntentAnalyzer
 {
@@ -80,7 +81,7 @@ PROMPT;
         try {
             $json = $this->llm->analyzeIntent($systemPrompt, $userMessage);
             return json_decode($json, true, flags: JSON_THROW_ON_ERROR);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error("Batch match failed: " . $e->getMessage());
             return ['match' => false];
         }

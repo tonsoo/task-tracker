@@ -1,32 +1,32 @@
 <?php
 
-namespace Tonso\TrelloTracker;
+namespace Tonso\TaskTracker;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
 use Stevenmaguire\Services\Trello\Client;
-use Tonso\TrelloTracker\AI\AiIntentAnalyzer;
-use Tonso\TrelloTracker\AI\Clients\OpenAILLMClient;
-use Tonso\TrelloTracker\AI\Contracts\LLMClient;
-use Tonso\TrelloTracker\Console\Commands\MonitorIdleTranscripts;
-use Tonso\TrelloTracker\Jobs\ProcessMessageBatchJob;
-use Tonso\TrelloTracker\Messaging\Adapters\WhatsAppAdapter;
-use Tonso\TrelloTracker\Models\IncomingMessage;
-use Tonso\TrelloTracker\Services\Trello\TrelloOrchestrator;
-use Tonso\TrelloTracker\Services\Trello\TrelloService;
-use Tonso\TrelloTracker\Services\WhatsappService;
-use Tonso\TrelloTracker\UseCases\ProcessIncomingMessage;
+use Tonso\TaskTracker\AI\AiIntentAnalyzer;
+use Tonso\TaskTracker\AI\Clients\OpenAILLMClient;
+use Tonso\TaskTracker\AI\Contracts\LLMClient;
+use Tonso\TaskTracker\Console\Commands\MonitorIdleTranscripts;
+use Tonso\TaskTracker\Jobs\ProcessMessageBatchJob;
+use Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter;
+use Tonso\TaskTracker\Models\IncomingMessage;
+use Tonso\TaskTracker\Services\Trello\TrelloOrchestrator;
+use Tonso\TaskTracker\Services\Trello\TrelloService;
+use Tonso\TaskTracker\Services\WhatsappService;
+use Tonso\TaskTracker\UseCases\ProcessIncomingMessage;
 
-class TrelloTrackerServiceProvider extends ServiceProvider
+class TaskTrackerServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../database/migrations' => database_path('migrations'),
-            ], 'trello-tracker-migrations');
+            ], 'task-tracker-migrations');
 
             $this->commands([
                 MonitorIdleTranscripts::class,
@@ -34,7 +34,7 @@ class TrelloTrackerServiceProvider extends ServiceProvider
 
             $this->app->booted(function () {
                 $schedule = $this->app->make(Schedule::class);
-                $schedule->command('trello-tracker:monitor-idle')->everyThirtySeconds();
+                $schedule->command('task-tracker:monitor-idle')->everyThirtySeconds();
                 $schedule->job(new ProcessMessageBatchJob())->everyThirtySeconds();
                 $schedule->call(function () {
                     IncomingMessage::where('created_at', '<', now()->subDays(10))->delete();
@@ -43,29 +43,29 @@ class TrelloTrackerServiceProvider extends ServiceProvider
         }
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/trello-tracker.php',
-            'trello-tracker'
+            __DIR__ . '/../config/task-tracker.php',
+            'task-tracker'
         );
 
         $this->app->singleton(Client::class, function () {
             return new Client([
-                'key'   => config('trello-tracker.task_managers.trello.key'),
-                'token' => config('trello-tracker.task_managers.trello.token'),
+                'key'   => config('task-tracker.task_managers.trello.key'),
+                'token' => config('task-tracker.task_managers.trello.token'),
             ]);
         });
 
         $this->app->singleton(LLMClient::class, function () {
             return new OpenAILLMClient(
-                apiKey: config('trello-tracker.ai.openai.key'),
-                model: config('trello-tracker.ai.openai.model', 'gpt-4.1-mini'),
+                apiKey: config('task-tracker.ai.openai.key'),
+                model: config('task-tracker.ai.openai.model', 'gpt-4.1-mini'),
             );
         });
 
         $this->app->singleton(TrelloService::class, function ($app) {
             return new TrelloService(
                 client: $app->make(Client::class),
-                boardId: config('trello-tracker.task_managers.trello.board_id'),
-                defaultListId: config('trello-tracker.task_managers.trello.default_list_id'),
+                boardId: config('task-tracker.task_managers.trello.board_id'),
+                defaultListId: config('task-tracker.task_managers.trello.default_list_id'),
             );
         });
 
@@ -78,12 +78,12 @@ class TrelloTrackerServiceProvider extends ServiceProvider
         $this->app->singleton(WhatsAppAdapter::class);
     }
 
-    public function boot()
+    public function boot(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
 
         $this->publishes([
-            __DIR__ . '/../config/trello-tracker.php' => config_path('trello-tracker.php'),
-        ], 'trello-tracker-config');
+            __DIR__ . '/../config/task-tracker.php' => config_path('task-tracker.php'),
+        ], 'task-tracker-config');
     }
 }

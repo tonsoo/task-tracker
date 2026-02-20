@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TrelloTracker\Services;
+namespace Tonso\TaskTracker\Services;
 
 use GuzzleHttp\Client;
 
@@ -11,11 +11,11 @@ class WhatsappService
 
     public function __construct()
     {
-        $this->token = config('trello-tracker.messaging.whatsapp.token');
-        $this->fromId = config('trello-tracker.messaging.whatsapp.from.id');
+        $this->token = config('task-tracker.messaging.whatsapp.token');
+        $this->fromId = config('task-tracker.messaging.whatsapp.from.id');
     }
 
-    public function sendMessage(string $message, string $to)
+    public function sendMessage(string $message, string $to): void
     {
         $client = new Client([
             'headers' => [

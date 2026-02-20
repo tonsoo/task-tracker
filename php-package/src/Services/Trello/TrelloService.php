@@ -1,13 +1,13 @@
 <?php
 
-namespace Tonso\TrelloTracker\Services\Trello;
+namespace Tonso\TaskTracker\Services\Trello;
 
 use Illuminate\Support\Collection;
 use Stevenmaguire\Services\Trello\Client as TrelloClient;
-use Tonso\TrelloTracker\Objects\Trello\Action;
-use Tonso\TrelloTracker\Objects\Trello\Board;
-use Tonso\TrelloTracker\Objects\Trello\BoardList;
-use Tonso\TrelloTracker\Objects\Trello\Card;
+use Tonso\TaskTracker\Objects\Trello\Action;
+use Tonso\TaskTracker\Objects\Trello\Board;
+use Tonso\TaskTracker\Objects\Trello\BoardList;
+use Tonso\TaskTracker\Objects\Trello\Card;
 
 class TrelloService
 {

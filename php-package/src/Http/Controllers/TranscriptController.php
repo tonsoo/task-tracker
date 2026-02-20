@@ -1,14 +1,14 @@
 <?php
 
-namespace Tonso\TrelloTracker\Http\Controllers;
+namespace Tonso\TaskTracker\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Tonso\TrelloTracker\Models\Transcript;
+use Tonso\TaskTracker\Models\Transcript;
 
 class TranscriptController extends Controller
 {
-    public function transcribe(Request $request, string $meetingId)
+    public function transcribe(Request $request, string $meetingId): \Illuminate\Http\JsonResponse
     {
         $data = $request->validate([
             'endedAt' => 'required',
@@ -52,7 +52,7 @@ class TranscriptController extends Controller
         return [
             'timestamp' => (string) ($item['timestamp'] ?? ''),
             'text' => (string) ($item['text'] ?? ''),
-            'processed' => $keepProcessed ? (bool) ($item['processed'] ?? false) : false,
+            'processed' => $keepProcessed && (bool)($item['processed'] ?? false),
         ];
     }
 }

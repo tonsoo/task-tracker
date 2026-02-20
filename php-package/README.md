@@ -1,4 +1,4 @@
-# Trello Tracker
+# Task Tracker
 
 Um pacote Laravel que transforma mensagens recebidas do WhatsApp em cards acionáveis no Trello usando extração de intenção por IA. Ele escuta webhooks do WhatsApp, interpreta mensagens via adapters, classifica a intenção com um LLM e orquestra operações no Trello (criar/atualizar/arquivar cards, adicionar comentários, etc.).
 
@@ -7,18 +7,18 @@ Um pacote Laravel que transforma mensagens recebidas do WhatsApp em cards acion�
 - **Padrão Adapter** para plataformas de mensagens (`MessagingAdapter`), com `WhatsAppAdapter` embutido
 - **Análise de intenção por IA** usando `OpenAI` através do contrato `LLMClient`
 - **Orquestração inteligente do Trello** para deduplicar relatos e atualizar cards existentes
-- **Publicação de config** e configuração por ambiente (`config/trello-tracker.php`)
+- **Publicação de config** e configuração por ambiente (`config/task-tracker.php`)
 - **Processamento em fila** com tratamento idempotente de mensagens recebidas
 
 ## Início Rápido
 1. **Instalação**
 ```bash
-composer require tonso/trello-tracker
+composer require tonso/task-tracker
 ```
 
 2. **Publicar configuração**
 ```bash
-php artisan vendor:publish --tag=trello-tracker-config
+php artisan vendor:publish --tag=task-tracker-config
 ```
 
 3. **Variáveis de ambiente** (veja `.env.example` e `docs/configuration.md`)
@@ -47,7 +47,7 @@ php artisan queue:work
 ```
 
 ## Arquitetura
-- **Service Provider**: `src/TrelloTrackerServiceProvider.php`
+- **Service Provider**: `src/TaskTrackerServiceProvider.php`
   - Faz bind de `LLMClient` para `OpenAILLMClient`
   - Faz bind do cliente Trello e serviços (`TrelloService`, `TrelloOrchestrator`)
   - Registra `WhatsAppAdapter`

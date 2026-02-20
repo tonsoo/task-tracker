@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TrelloTracker\Messaging\Contracts;
+namespace Tonso\TaskTracker\Messaging\Contracts;
 
 interface MessagingAdapter
 {

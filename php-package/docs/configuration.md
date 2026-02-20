@@ -1,6 +1,6 @@
 # Configuração
 
-O pacote lê de `config/trello-tracker.php`. Publique o arquivo e defina as variáveis de ambiente abaixo.
+O pacote lê de `config/task-tracker.php`. Publique o arquivo e defina as variáveis de ambiente abaixo.
 
 ```env
 # WhatsApp

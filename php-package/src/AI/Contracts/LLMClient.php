@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TrelloTracker\AI\Contracts;
+namespace Tonso\TaskTracker\AI\Contracts;
 
 interface LLMClient
 {

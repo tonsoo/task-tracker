@@ -15,4 +15,4 @@
 - `ProcessIncomingMessageJob` usa um lock curto com base no `messageId` (quando houver) para idempotência
 
 ## Enviar respostas (opcional)
-- Use `Tonso\TrelloTracker\Services\WhatsappService::sendMessage($message, $to)` com seu `from.id` configurado
+- Use `Tonso\TaskTracker\Services\WhatsappService::sendMessage($message, $to)` com seu `from.id` configurado

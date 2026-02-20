@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TrelloTracker\Objects\Trello;
+namespace Tonso\TaskTracker\Objects\Trello;
 
 final class Board extends TrelloObject
 {

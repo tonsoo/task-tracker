@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonso\TrelloTracker\Console\Commands;
+namespace Tonso\TaskTracker\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Tonso\TrelloTracker\Jobs\ProcessCompleteTranscript;
-use Tonso\TrelloTracker\Models\Transcript;
+use Tonso\TaskTracker\Jobs\ProcessCompleteTranscript;
+use Tonso\TaskTracker\Models\Transcript;
 use Carbon\Carbon;
 
 class MonitorIdleTranscripts extends Command
@@ -14,11 +14,11 @@ class MonitorIdleTranscripts extends Command
      * The name and signature of the console command.
      * {minutes?} makes the argument optional.
      */
-    protected $signature = 'trello-tracker:monitor-idle {minutes=1}';
+    protected $signature = 'task-tracker:monitor-idle {minutes=1}';
 
     protected $description = 'Check for transcripts that have been silent for X minutes';
 
-    public function handle()
+    public function handle(): int
     {
         Log::info('Running transcript monitor');
 

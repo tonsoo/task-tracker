@@ -4,7 +4,7 @@
 Faça o bind da sua implementação de `LLMClient`.
 
 ```php
-use Tonso\TrelloTracker\AI\Contracts\LLMClient;
+use Tonso\TaskTracker\AI\Contracts\LLMClient;
 
 $this->app->singleton(LLMClient::class, fn () => new MyLLMClient(...));
 ```

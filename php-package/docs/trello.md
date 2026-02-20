@@ -1,7 +1,7 @@
 # Integração com o Trello
 
-- Serviço: `Tonso\TrelloTracker\Services\Trello\TrelloService`
-- Orquestrador: `Tonso\TrelloTracker\Services\Trello\TrelloOrchestrator`
+- Serviço: `Tonso\TaskTracker\Services\Trello\TrelloService`
+- Orquestrador: `Tonso\TaskTracker\Services\Trello\TrelloOrchestrator`
 - Objetos de valor: `src/Objects/Trello/{Board, BoardList, Card, Action}`
 
 ## Operações

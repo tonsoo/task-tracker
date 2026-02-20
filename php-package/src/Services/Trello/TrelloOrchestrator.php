@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonso\TrelloTracker\Services\Trello;
+namespace Tonso\TaskTracker\Services\Trello;
 
 use Illuminate\Support\Str;
-use Tonso\TrelloTracker\AI\AiIntentAnalyzer;
-use Tonso\TrelloTracker\AI\DTO\StructuredIntent;
-use Tonso\TrelloTracker\Objects\Trello\Card;
+use Tonso\TaskTracker\AI\AiIntentAnalyzer;
+use Tonso\TaskTracker\AI\DTO\StructuredIntent;
+use Tonso\TaskTracker\Objects\Trello\Card;
 
 final class TrelloOrchestrator
 {
@@ -132,8 +132,10 @@ final class TrelloOrchestrator
             );
 
             if (($result['match'] ?? false) &&
-                ($result['confidence'] ?? 0) >= config('trello-tracker.ai.similarity_threshold')) {
-                return $cards->firstWhere('id', $result['card_id']);
+                ($result['confidence'] ?? 0) >= config('task-tracker.ai.similarity_threshold')) {
+                /** @var ?Card $card */
+                $card = $cards->firstWhere('id', $result['card_id']);
+                return $card;
             }
         }
 

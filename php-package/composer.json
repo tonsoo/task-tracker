@@ -1,15 +1,15 @@
 {
-  "name": "tonso/trello-tracker",
+  "name": "tonso/task-tracker",
   "type": "library",
   "autoload": {
     "psr-4": {
-      "Tonso\\TrelloTracker\\": "src/"
+      "Tonso\\TaskTracker\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Tonso\\TrelloTracker\\TrelloTrackerServiceProvider"
+        "Tonso\\TaskTracker\\TaskTrackerServiceProvider"
       ]
     }
   },

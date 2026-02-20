@@ -1,6 +1,8 @@
 <?php
 
-namespace Tonso\TrelloTracker\Objects\Trello;
+namespace Tonso\TaskTracker\Objects\Trello;
+
+use stdClass;
 
 final class Action extends TrelloObject
 {
@@ -27,7 +29,7 @@ final class Action extends TrelloObject
         return $this->get('date');
     }
 
-    public function memberCreator(): ?\stdClass
+    public function memberCreator(): ?stdClass
     {
         return $this->get('memberCreator');
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Tonso\TrelloTracker\Messaging\Adapters;
+namespace Tonso\TaskTracker\Messaging\Adapters;
 
-use Tonso\TrelloTracker\Messaging\Contracts\MessagingAdapter;
+use Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter;
 
 final class WhatsAppAdapter implements MessagingAdapter
 {

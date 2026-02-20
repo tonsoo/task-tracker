@@ -1,19 +1,21 @@
 <?php
 
-namespace Tonso\TrelloTracker\Objects\Trello;
+namespace Tonso\TaskTracker\Objects\Trello;
+
+use stdClass;
 
 abstract class TrelloObject
 {
     public function __construct(
-        protected readonly \stdClass $raw
+        protected readonly stdClass $raw
     ) {}
 
-    public static function from(\stdClass $raw): static
+    public static function from(stdClass $raw): static
     {
         return new static($raw);
     }
 
-    public function raw(): \stdClass
+    public function raw(): stdClass
     {
         return $this->raw;
     }

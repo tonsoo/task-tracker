@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TrelloTracker\AI\DTO;
+namespace Tonso\TaskTracker\AI\DTO;
 
 final class SimilarityResult
 {

@@ -1,8 +1,8 @@
 # Análise de Intenção por IA
 
-- Analyzer: `Tonso\TrelloTracker\AI\AiIntentAnalyzer`
-- Contrato do cliente: `Tonso\TrelloTracker\AI\Contracts\LLMClient`
-- Cliente padrão: `Tonso\TrelloTracker\AI\Clients\OpenAILLMClient`
+- Analyzer: `Tonso\TaskTracker\AI\AiIntentAnalyzer`
+- Contrato do cliente: `Tonso\TaskTracker\AI\Contracts\LLMClient`
+- Cliente padrão: `Tonso\TaskTracker\AI\Clients\OpenAILLMClient`
 
 ## Extração de intenção
 `AiIntentAnalyzer::analyze($message)` monta um prompt estruturado e espera JSON como retorno. Devolve `StructuredIntent` com:

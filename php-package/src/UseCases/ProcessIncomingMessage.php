@@ -1,9 +1,9 @@
 <?php
 
-namespace Tonso\TrelloTracker\UseCases;
+namespace Tonso\TaskTracker\UseCases;
 
-use Tonso\TrelloTracker\AI\AiIntentAnalyzer;
-use Tonso\TrelloTracker\Services\Trello\TrelloOrchestrator;
+use Tonso\TaskTracker\AI\AiIntentAnalyzer;
+use Tonso\TaskTracker\Services\Trello\TrelloOrchestrator;
 
 final class ProcessIncomingMessage
 {

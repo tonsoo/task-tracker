@@ -2,9 +2,9 @@
 
 Adapters traduzem payloads específicos da plataforma para DTOs `IncomingMessage`.
 
-- Contrato: `Tonso\TrelloTracker\Messaging\Contracts\MessagingAdapter`
-- Embutido: `Tonso\TrelloTracker\Messaging\Adapters\WhatsAppAdapter`
-- DTO: `Tonso\TrelloTracker\Messaging\IncomingMessage`
+- Contrato: `Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter`
+- Embutido: `Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter`
+- DTO: `Tonso\TaskTracker\Messaging\IncomingMessage`
 
 ## WhatsAppAdapter
 - Itera `entry[].changes[].value.messages[]`
@@ -16,7 +16,7 @@ Adapters traduzem payloads específicos da plataforma para DTOs `IncomingMessage
 ```php
 namespace App\Messaging\Adapters;
 
-use Tonso\TrelloTracker\Messaging\Contracts\MessagingAdapter;use Tonso\TrelloTracker\Models\IncomingMessage;
+use Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter;use Tonso\TaskTracker\Models\IncomingMessage;
 
 final class TelegramAdapter implements MessagingAdapter
 {

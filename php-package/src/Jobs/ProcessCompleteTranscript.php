@@ -1,15 +1,16 @@
 <?php
 
-namespace Tonso\TrelloTracker\Jobs;
+namespace Tonso\TaskTracker\Jobs;
 
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Tonso\TrelloTracker\Models\Transcript;
-use Tonso\TrelloTracker\UseCases\ProcessTranscript;
+use Tonso\TaskTracker\Models\Transcript;
+use Tonso\TaskTracker\UseCases\ProcessTranscript;
 
 class ProcessCompleteTranscript implements ShouldQueue
 {
@@ -17,7 +18,7 @@ class ProcessCompleteTranscript implements ShouldQueue
 
     public function __construct(public Transcript $transcript) {}
 
-    public function handle(ProcessTranscript $useCase)
+    public function handle(ProcessTranscript $useCase): void
     {
         try {
             Log::info("Processing finalized transcript for: " . $this->transcript->meeting_id);
@@ -25,7 +26,7 @@ class ProcessCompleteTranscript implements ShouldQueue
             $useCase->handle($this->transcript);
 
             $this->transcript->update(['status' => 'completed']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->transcript->update(['status' => 'active']);
             throw $e;
         }

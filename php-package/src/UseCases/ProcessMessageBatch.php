@@ -1,11 +1,10 @@
 <?php
 
-namespace Tonso\TrelloTracker\UseCases;
+namespace Tonso\TaskTracker\UseCases;
 
-use Illuminate\Support\Facades\Log;
-use Tonso\TrelloTracker\AI\AiIntentAnalyzer;
-use Tonso\TrelloTracker\Models\IncomingMessage;
-use Tonso\TrelloTracker\Services\Trello\TrelloOrchestrator;
+use Tonso\TaskTracker\AI\AiIntentAnalyzer;
+use Tonso\TaskTracker\Models\IncomingMessage;
+use Tonso\TaskTracker\Services\Trello\TrelloOrchestrator;
 
 final class ProcessMessageBatch
 {
