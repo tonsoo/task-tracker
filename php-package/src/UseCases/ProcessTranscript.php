@@ -15,12 +15,18 @@ final class ProcessTranscript
 
     public function handle(Transcript $transcript): void
     {
-        $context = collect($transcript->body)
+        $newItems = collect($transcript->body)
+            ->filter(fn ($item) => empty($item['processed']));
+
+        if ($newItems->isEmpty()) {
+            return;
+        }
+
+        $context = $newItems
             ->map(function ($item) {
                 $text = $item['text'] ?? '';
                 return "[NEW]: " . $text;
             })
-//            ->filter(fn($line) => strlen($line) > 10)
             ->join("\n");
 
         $intents = $this->ai->analyzeBatch($context);
@@ -28,5 +34,17 @@ final class ProcessTranscript
         foreach ($intents as $intent) {
             $this->orchestrator->handle($intent);
         }
+
+        $body = collect($transcript->body)
+            ->map(function ($item) {
+                if (empty($item['processed'])) {
+                    $item['processed'] = true;
+                }
+                return $item;
+            })
+            ->values()
+            ->toArray();
+
+        $transcript->update(['body' => $body]);
     }
 }

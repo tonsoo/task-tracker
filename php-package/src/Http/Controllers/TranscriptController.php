@@ -17,10 +17,14 @@ class TranscriptController extends Controller
 
         $record = Transcript::firstOrNew(['meeting_id' => $meetingId]);
 
-        $existingMessages = $record->body ?? [];
+        $existingMessages = collect($record->body ?? [])
+            ->map(fn ($item) => $this->normalizeTranscriptItem($item, keepProcessed: true));
 
-        $merged = collect($existingMessages)
-            ->concat($data['transcript'])
+        $incomingMessages = collect($data['transcript'])
+            ->map(fn ($item) => $this->normalizeTranscriptItem($item, keepProcessed: false));
+
+        $merged = $existingMessages
+            ->concat($incomingMessages)
             ->unique(function ($item) {
                 $shortTime = substr($item['timestamp'], 0, 19);
                 return $shortTime . $item['text'];
@@ -31,7 +35,7 @@ class TranscriptController extends Controller
 
         $record->status = 'active';
         $record->body = $merged;
-        $record->ended_at = null;
+        $record->ended_at = $data['endedAt'] ?: null;
         $record->save();
 
         return response()->json([
@@ -41,5 +45,14 @@ class TranscriptController extends Controller
             ->header('Access-Control-Allow-Origin', '*')
             ->header('Access-Control-Allow-Methods', 'POST, OPTIONS')
             ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    }
+
+    private function normalizeTranscriptItem(array $item, bool $keepProcessed): array
+    {
+        return [
+            'timestamp' => (string) ($item['timestamp'] ?? ''),
+            'text' => (string) ($item['text'] ?? ''),
+            'processed' => $keepProcessed ? (bool) ($item['processed'] ?? false) : false,
+        ];
     }
 }

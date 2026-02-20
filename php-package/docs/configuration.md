@@ -18,8 +18,12 @@ TRELLO_LIST_ID=id_da_lista
 # OpenAI
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4.1-mini
+
+# Transcricoes
+TRANSCRIBER_SECRET_KEY=seu_token
 ```
 
 - `messaging.whatsapp.*`: usado por `WhatsappService` e pela verificação no `MessagingController`
 - `task_managers.trello.*`: usado por `TrelloService` para operações no board/lista
 - `ai.openai.*`: usado por `OpenAILLMClient` e pelos limiares consumidos no `TrelloOrchestrator`
+- `transcriptions.secret_key`: token Bearer para o endpoint de transcricoes

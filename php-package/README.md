@@ -80,6 +80,7 @@ php artisan queue:work
 - **[Instalação](docs/installation.md)**
 - **[Configuração](docs/configuration.md)**
 - **[Uso](docs/usage.md)**
+- **[Transcrições](docs/transcriptions.md)**
 - **[Adapters de Mensageria](docs/adapters.md)**
 - **[Análise de IA](docs/ai.md)**
 - **[Integração com Trello](docs/trello.md)**

@@ -78,6 +78,10 @@ final class TrelloOrchestrator
             return;
         }
 
+        if ($intent->type === 'bug_fixed') {
+            return;
+        }
+
         $this->createNewCard($intent);
     }
 
