@@ -6,16 +6,17 @@
 
 ## Extração de intenção
 `AiIntentAnalyzer::analyze($message)` monta um prompt estruturado e espera JSON como retorno. Devolve `StructuredIntent` com:
-- `type`: `bug_report | feature_request | bug_fixed | status_update | unknown`
+- `type`: `bug_report | feature_request | bug_fixed | unknown`
 - `title`
 - `description` (pode ser nulo)
 - `steps_to_reproduce` (array)
 - `tags` (array)
 - `resolution` (pode ser nulo)
+- `canonical` (objeto com `object` e `action`)
 
 ## Checagem de similaridade
-`AiIntentAnalyzer::compareIssue($newMessage, $existingCard)` retorna `SimilarityResult { match, confidence, reason }`, usado pelo `TrelloOrchestrator` para decidir se atualiza um card existente.
+`AiIntentAnalyzer::findMatchInBatch($newIntent, $candidates)` retorna `{ match, task_id, confidence, reason }`, usado pelo `TaskOrchestrator` para decidir se atualiza uma tarefa existente.
 
 ## Configuração
 - Modelo e chave via `ai.openai.*`
-- Limiares: `ai.similarity_threshold`, `ai.max_similarity_candidates`
+- Limiares: `ai.similarity_threshold`

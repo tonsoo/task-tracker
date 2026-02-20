@@ -8,7 +8,7 @@
 1. `MessagingController@whatsapp` interpreta o payload via `WhatsAppAdapter`
 2. Despacha `ProcessIncomingMessageJob` por mensagem
 3. `ProcessIncomingMessage` → `AiIntentAnalyzer` → `StructuredIntent`
-4. `TrelloOrchestrator` aplica regras de negócio
+4. `TaskOrchestrator` aplica regras de negócio usando o `TaskManager` configurado
 
 ## Fila
 - Garanta um worker rodando: `php artisan queue:work`

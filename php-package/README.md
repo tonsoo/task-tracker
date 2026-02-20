@@ -1,12 +1,13 @@
 # Task Tracker
 
-Um pacote Laravel que transforma mensagens recebidas do WhatsApp em cards acionáveis no Trello usando extração de intenção por IA. Ele escuta webhooks do WhatsApp, interpreta mensagens via adapters, classifica a intenção com um LLM e orquestra operações no Trello (criar/atualizar/arquivar cards, adicionar comentários, etc.).
+Um pacote Laravel que transforma mensagens recebidas do WhatsApp em tarefas acionáveis em qualquer gerenciador configurado (Trello, Linear, sistemas internos) usando extração de intenção por IA. Ele escuta webhooks do WhatsApp, interpreta mensagens via adapters, classifica a intenção com um LLM e orquestra operações no gerenciador de tarefas (criar/atualizar/fechar, adicionar contexto, etc.).
 
 ## Recursos
 - **Ingestão de webhooks do WhatsApp** via `routes/api.php` para `MessagingController`
 - **Padrão Adapter** para plataformas de mensagens (`MessagingAdapter`), com `WhatsAppAdapter` embutido
 - **Análise de intenção por IA** usando `OpenAI` através do contrato `LLMClient`
-- **Orquestração inteligente do Trello** para deduplicar relatos e atualizar cards existentes
+- **Orquestração inteligente de tarefas** para deduplicar relatos e atualizar itens existentes
+- **Integrações pluggable** via `TaskManager` (Trello incluso por padrão)
 - **Publicação de config** e configuração por ambiente (`config/task-tracker.php`)
 - **Processamento em fila** com tratamento idempotente de mensagens recebidas
 
@@ -27,6 +28,8 @@ WHATSAPP_TOKEN=...
 WHATSAPP_FROM_NUMBER=...
 WHATSAPP_FROM_ID=...
 WHATSAPP_SECRET=...
+
+TASK_TRACKER_MANAGER=trello
 
 TRELLO_KEY=...
 TRELLO_TOKEN=...
@@ -49,7 +52,7 @@ php artisan queue:work
 ## Arquitetura
 - **Service Provider**: `src/TaskTrackerServiceProvider.php`
   - Faz bind de `LLMClient` para `OpenAILLMClient`
-  - Faz bind do cliente Trello e serviços (`TrelloService`, `TrelloOrchestrator`)
+  - Faz bind do `TaskManager` configurado e do `TaskOrchestrator`
   - Registra `WhatsAppAdapter`
   - Carrega rotas e publica config
 
@@ -61,19 +64,19 @@ php artisan queue:work
 
 - **IA**: `AiIntentAnalyzer` + `LLMClient` (implementação OpenAI)
 
-- **Caso de Uso**: `ProcessIncomingMessage` → extrai intenção → delega ao `TrelloOrchestrator`
+- **Caso de Uso**: `ProcessIncomingMessage` → extrai intenção → delega ao `TaskOrchestrator`
 
-- **Trello**: `TrelloService` (wrapper da API) + `TrelloOrchestrator` (regras de negócio) + objetos de valor em `src/Objects/Trello/`
+- **Integrações**: `TaskManager` (contrato) + implementações em `src/Integrations/*`
 
 ## Ciclo (alto nível)
 1. WhatsApp envia webhook → `MessagingController@whatsapp`
 2. `WhatsAppAdapter` converte para `IncomingMessage[]`
 3. Cada mensagem é enfileirada como `ProcessIncomingMessageJob` (lock idempotente por id da mensagem quando houver)
 4. `ProcessIncomingMessage` usa `AiIntentAnalyzer` para obter `StructuredIntent`
-5. `TrelloOrchestrator`:
-   - `bug_report`: encontra card similar via palavras‑chave + IA; atualiza card existente ou cria novo
-   - `bug_fixed`: comenta com resolução e arquiva
-   - `feature_request`: cria novo card
+5. `TaskOrchestrator`:
+   - `bug_report`: encontra tarefa similar via palavras‑chave + IA; atualiza existente ou cria nova
+   - `bug_fixed`: adiciona resolução e fecha a tarefa
+   - `feature_request`: cria nova tarefa
 
 ## Documentação
 - **[Visão Geral](docs/overview.md)**
@@ -83,6 +86,7 @@ php artisan queue:work
 - **[Transcrições](docs/transcriptions.md)**
 - **[Adapters de Mensageria](docs/adapters.md)**
 - **[Análise de IA](docs/ai.md)**
+- **[Gerenciadores de Tarefas](docs/task-managers.md)**
 - **[Integração com Trello](docs/trello.md)**
 - **[HTTP & Webhooks](docs/http-webhooks.md)**
 - **[Estendendo o Pacote](docs/extending.md)**
@@ -90,7 +94,7 @@ php artisan queue:work
 - PHP 8.2+
 - Laravel 12.x
 - Fila configurada e worker em execução
-- Chave e token do Trello
+- Chave e token do gerenciador (Trello incluso)
 - App do WhatsApp Cloud API configurado
 - Chave de API da OpenAI
 

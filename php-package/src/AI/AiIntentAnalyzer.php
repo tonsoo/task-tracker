@@ -70,13 +70,13 @@ Retorne apenas um objeto json válido.
 Formato:
 {
   "match": boolean,
-  "card_id": "string|null",
+  "task_id": "string|null",
   "confidence": 0.0-1.0,
   "reason": "Explique a comparação canônica"
 }
 PROMPT;
 
-        $userMessage = "NOVA INTENÇÃO:\n{$newIntent}\n\nLISTA DE CARTÕES EXISTENTES:\n" . json_encode($candidates);
+        $userMessage = "NOVA INTENÇÃO:\n{$newIntent}\n\nLISTA DE TAREFAS EXISTENTES:\n" . json_encode($candidates);
 
         try {
             $json = $this->llm->analyzeIntent($systemPrompt, $userMessage);
@@ -181,9 +181,9 @@ REGRAS DE CONTEXTO:
 
 FILTRAGEM DE RUÍDO (OBRIGATÓRIA):
 Ignore completamente:
-- Pedidos para criar cards
+- Pedidos para criar tarefas
 - Reclamações sobre processo
-- Conversa meta sobre Trello ou organização
+- Conversa meta sobre organização de tarefas
 
 SAÍDA:
 Responda exclusivamente em json válido.

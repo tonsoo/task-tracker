@@ -1,7 +1,7 @@
 # Integração com o Trello
 
 - Serviço: `Tonso\TaskTracker\Services\Trello\TrelloService`
-- Orquestrador: `Tonso\TaskTracker\Services\Trello\TrelloOrchestrator`
+- Task manager: `Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager`
 - Objetos de valor: `src/Objects/Trello/{Board, BoardList, Card, Action}`
 
 ## Operações
@@ -11,9 +11,10 @@
 - Labels e custom fields (campos personalizados)
 
 ## Regras de orquestração
-- `bug_report`: atualiza card similar existente (anexa ao corpo + comenta) ou cria um novo
+- `bug_report`: atualiza card similar existente (comenta) ou cria um novo
 - `bug_fixed`: comenta com a resolução e arquiva
 - `feature_request`: cria um novo card
 
 ## Configuração
+- Defina `TASK_TRACKER_MANAGER=trello`
 - Defina `TRELLO_KEY`, `TRELLO_TOKEN`, `TRELLO_BOARD_ID`, `TRELLO_LIST_ID`

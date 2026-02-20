@@ -33,7 +33,7 @@ WHATSAPP_SECRET=seu_verify_token
 - A Meta envia o payload ao `POST /webhooks/messaging/whatsapp`.
 - O `WhatsAppAdapter` converte para `IncomingMessage[]` (apenas mensagens de texto).
 - Cada mensagem é processada via fila por `ProcessIncomingMessageJob`.
-- O uso do `AiIntentAnalyzer` e `TrelloOrchestrator` está detalhado em:
+- O uso do `AiIntentAnalyzer` e `TaskOrchestrator` está detalhado em:
   - [`docs/ai.md`](ai.md)
   - [`docs/trello.md`](trello.md)
   - [`docs/lifecycle.md`](lifecycle.md)

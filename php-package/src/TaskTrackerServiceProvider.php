@@ -9,11 +9,12 @@ use Tonso\TaskTracker\AI\AiIntentAnalyzer;
 use Tonso\TaskTracker\AI\Clients\OpenAILLMClient;
 use Tonso\TaskTracker\AI\Contracts\LLMClient;
 use Tonso\TaskTracker\Console\Commands\MonitorIdleTranscripts;
+use Tonso\TaskTracker\Contracts\TaskManager;
 use Tonso\TaskTracker\Jobs\ProcessMessageBatchJob;
 use Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter;
 use Tonso\TaskTracker\Models\IncomingMessage;
-use Tonso\TaskTracker\Services\Trello\TrelloOrchestrator;
 use Tonso\TaskTracker\Services\Trello\TrelloService;
+use Tonso\TaskTracker\Services\Task\TaskOrchestrator;
 use Tonso\TaskTracker\Services\WhatsappService;
 use Tonso\TaskTracker\UseCases\ProcessIncomingMessage;
 
@@ -69,7 +70,19 @@ class TaskTrackerServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->singleton(TrelloOrchestrator::class);
+        $this->app->singleton(TaskManager::class, function ($app) {
+            $managerKey = config('task-tracker.task_manager', 'trello');
+            $managerConfig = config("task-tracker.task_managers.$managerKey", []);
+            $driver = $managerConfig['driver'] ?? null;
+
+            if (!$driver) {
+                throw new \RuntimeException("Task manager [$managerKey] does not define a driver class.");
+            }
+
+            return $app->make($driver);
+        });
+
+        $this->app->singleton(TaskOrchestrator::class);
         $this->app->singleton(WhatsappService::class);
 
         $this->app->singleton(AiIntentAnalyzer::class);

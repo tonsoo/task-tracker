@@ -1,6 +1,6 @@
 # Transcricoes de Reunioes
 
-Este fluxo recebe transcricoes por webhook, consolida o texto e dispara a analise por IA para gerar cards no Trello.
+Este fluxo recebe transcricoes por webhook, consolida o texto e dispara a analise por IA para gerar tarefas no gerenciador configurado.
 
 ## Endpoint
 - POST `/webhooks/transcribe/{meetingId}`

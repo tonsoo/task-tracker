@@ -10,6 +10,7 @@ WHATSAPP_FROM_ID=seu_phone_number_id
 WHATSAPP_SECRET=seu_verify_token
 
 # Trello
+TASK_TRACKER_MANAGER=trello
 TRELLO_KEY=sua_chave_trello
 TRELLO_TOKEN=seu_token_trello
 TRELLO_BOARD_ID=id_do_board
@@ -24,6 +25,8 @@ TRANSCRIBER_SECRET_KEY=seu_token
 ```
 
 - `messaging.whatsapp.*`: usado por `WhatsappService` e pela verificação no `MessagingController`
-- `task_managers.trello.*`: usado por `TrelloService` para operações no board/lista
-- `ai.openai.*`: usado por `OpenAILLMClient` e pelos limiares consumidos no `TrelloOrchestrator`
+- `task_manager`: define o gerenciador ativo (ex: `trello`)
+- `task_managers.*.driver`: classe que implementa `TaskManager`
+- `task_managers.trello.*`: usado pelo `TrelloTaskManager` e `TrelloService` para operações no board/lista
+- `ai.openai.*`: usado por `OpenAILLMClient` e pelos limiares consumidos no `TaskOrchestrator`
 - `transcriptions.secret_key`: token Bearer para o endpoint de transcricoes

@@ -4,13 +4,13 @@ namespace Tonso\TaskTracker\UseCases;
 
 use Tonso\TaskTracker\AI\AiIntentAnalyzer;
 use Tonso\TaskTracker\Models\Transcript;
-use Tonso\TaskTracker\Services\Trello\TrelloOrchestrator;
+use Tonso\TaskTracker\Services\Task\TaskOrchestrator;
 
 final class ProcessTranscript
 {
     public function __construct(
         private readonly AiIntentAnalyzer $ai,
-        private readonly TrelloOrchestrator $orchestrator,
+        private readonly TaskOrchestrator $orchestrator,
     ) {}
 
     public function handle(Transcript $transcript): void
