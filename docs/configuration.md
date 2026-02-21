@@ -1,36 +1,44 @@
-# Configuração
+# Configuration
 
-O pacote lê de `config/task-tracker.php`. Publique o arquivo e defina as variáveis de ambiente abaixo.
+The package reads from `config/task-tracker.php`. Publish it and define the environment variables below.
 
+## Environment Variables
 ```env
 # WhatsApp
-WHATSAPP_TOKEN=seu_token_whatsapp
+WHATSAPP_TOKEN=your_whatsapp_token
 WHATSAPP_FROM_NUMBER=15551234567
-WHATSAPP_FROM_ID=seu_phone_number_id
-WHATSAPP_SECRET=seu_verify_token
+WHATSAPP_FROM_ID=your_phone_number_id
+WHATSAPP_SECRET=your_verify_token
 
-# Trello
+# Task driver
 TASK_TRACKER_DRIVER=trello
-TRELLO_KEY=sua_chave_trello
-TRELLO_TOKEN=seu_token_trello
-TRELLO_BOARD_ID=id_do_board
-TRELLO_LIST_ID=id_da_lista
+TRELLO_KEY=your_trello_key
+TRELLO_TOKEN=your_trello_token
+TRELLO_BOARD_ID=your_board_id
+TRELLO_LIST_ID=your_list_id
 
-# OpenAI
+# AI
+TASK_TRACKER_AI_DRIVER=openai
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4.1-mini
-TASK_TRACKER_AI_DRIVER=openai
 
-# Transcricoes
-TRANSCRIBER_SECRET_KEY=seu_token
+# Transcriptions
+TRANSCRIBER_SECRET_KEY=your_token
 ```
 
-- `messaging.drivers.*`: usado pelos drivers de mensageria e pelos webhooks
-- `task_driver`: define o driver ativo (ex: `trello`)
-- `task_drivers.*.driver`: classe que implementa `TaskDriver`
-- `task_drivers.trello.*`: usado pelo `TrelloDriver`, `TrelloTaskManager` e `TrelloService` para operações no board/lista
-- `messaging.drivers.whatsapp.*`: usado pelo `WhatsAppDriver` e `WhatsappService`
-- `ai.driver`: define o driver de IA ativo (ex: `openai`)
-- `ai.drivers.*.driver`: classe que implementa `AiDriver`
-- `ai.drivers.openai.*`: usado pelo `OpenAIDriver` para criar o cliente
-- `transcriptions.secret_key`: token Bearer para o endpoint de transcricoes
+## Config Map
+- `messaging.drivers.*`: messaging drivers used by webhooks
+- `messaging.drivers.whatsapp.*`: WhatsApp driver settings and secrets
+- `task_driver`: active task driver key (for example `trello`)
+- `task_drivers.*.driver`: class that implements `TaskDriver`
+- `task_drivers.trello.*`: Trello credentials and board/list IDs
+- `ai.driver`: active AI driver key
+- `ai.drivers.*.driver`: class that implements `AiDriver`
+- `ai.drivers.openai.*`: OpenAI credentials and model
+- `ai.similarity_threshold`: de-duplication confidence threshold
+- `transcriptions.secret_key`: bearer token for transcript webhook
+
+## Related Docs
+- [WhatsApp Cloud API Setup](whatsapp-setup.md)
+- [AI Intent Analysis](ai.md)
+- [Task Managers](task-managers.md)

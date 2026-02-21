@@ -1,20 +1,19 @@
-# Adapters de Mensageria
+# Messaging Adapters
 
-Drivers traduzem payloads específicos da plataforma para DTOs `IncomingMessage`, usando um Adapter quando necessário.
+Messaging drivers translate platform-specific payloads into `IncomingMessage` DTOs. Some platforms require an adapter layer to normalize the payload before the driver produces `IncomingMessage` records.
 
-- Contrato do driver: `Tonso\TaskTracker\Messaging\Contracts\MessagingDriver`
-- Contrato do adapter: `Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter`
-- Driver embutido: `Tonso\TaskTracker\Messaging\Drivers\WhatsAppDriver`
-- Adapter embutido: `Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter`
-- DTO: `Tonso\TaskTracker\Messaging\IncomingMessage`
+## Core Interfaces
+- Driver contract: `Tonso\TaskTracker\Messaging\Contracts\MessagingDriver`
+- Adapter contract: `Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter`
+- Built-in driver: `Tonso\TaskTracker\Messaging\Drivers\WhatsAppDriver`
+- Built-in adapter: `Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter`
 
-## WhatsAppDriver
-- Itera `entry[].changes[].value.messages[]`
-- Aceita apenas `type === 'text'`
-- Produz `IncomingMessage(platform: 'whatsapp', senderId, text, rawPayload)`
+## WhatsApp Driver Behavior
+- Iterates `entry[].changes[].value.messages[]`
+- Accepts only `type === 'text'`
+- Produces `IncomingMessage(platform: 'whatsapp', senderId, text, rawPayload)`
 
-## Criando um novo driver
-
+## Creating a New Driver
 ```php
 namespace App\Messaging\Drivers;
 
@@ -32,7 +31,7 @@ final class TelegramDriver implements MessagingDriver
     public function parse(Request $request): array
     {
         $payload = $request->all();
-        // ...mapear o update do Telegram para IncomingMessage[]
+        // Map Telegram payload to IncomingMessage[]
         return [
             [
                 'external_id' => 'abc',
@@ -45,4 +44,8 @@ final class TelegramDriver implements MessagingDriver
 }
 ```
 
-Registre o driver em `config/task-tracker.php` em `messaging.drivers.*`.
+Register the driver in `config/task-tracker.php` under `messaging.drivers.*`.
+
+## Related Docs
+- [HTTP & Webhooks](http-webhooks.md)
+- [WhatsApp Cloud API Setup](whatsapp-setup.md)

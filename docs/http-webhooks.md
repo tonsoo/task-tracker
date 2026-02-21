@@ -1,14 +1,20 @@
 # HTTP & Webhooks
 
-## Rotas
-Definidas em `routes/api.php` e carregadas automaticamente pelo Service Provider.
+All webhook routes are defined in `routes/api.php` and auto-loaded by the service provider.
 
-Para cada driver em `messaging.drivers`, o pacote registra:
-`GET /webhooks/messaging/{driver}` → `MessagingWebhookController@auth`
-`POST /webhooks/messaging/{driver}` → `MessagingWebhookController@ingest`
+## Messaging Routes
+For each driver in `messaging.drivers`, the package registers:
+- `GET /webhooks/messaging/{driver}` → `MessagingWebhookController@auth`
+- `POST /webhooks/messaging/{driver}` → `MessagingWebhookController@ingest`
 
-## Verificação
-Cada driver e responsavel por autenticar o webhook. O driver do WhatsApp compara `hub_verify_token` com `config('task-tracker.messaging.drivers.whatsapp.secret')` e devolve `hub_challenge` quando valido.
+## Verification
+Each driver is responsible for verification. For WhatsApp:
+- Compares `hub_verify_token` with `config('task-tracker.messaging.drivers.whatsapp.secret')`
+- Returns `hub_challenge` when valid
 
-## Interpretação do payload
-`ingest()` delega ao driver configurado, que por sua vez usa o adapter e gera `IncomingMessage[]` apenas para mensagens de texto (no caso do WhatsApp).
+## Payload Parsing
+`MessagingWebhookController@ingest` delegates to the configured driver, which uses its adapter to generate `IncomingMessage[]`. The WhatsApp driver only accepts text messages.
+
+## Related Docs
+- [Messaging Adapters](adapters.md)
+- [WhatsApp Cloud API Setup](whatsapp-setup.md)

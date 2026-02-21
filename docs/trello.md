@@ -1,20 +1,31 @@
-# Integração com o Trello
+# Trello Integration
 
-- Serviço: `Tonso\TaskTracker\Services\Trello\TrelloService`
+The Trello integration provides a `TaskManager` backed by Trello boards, lists, and cards.
+
+## Key Classes
+- Service: `Tonso\TaskTracker\Services\Trello\TrelloService`
 - Task manager: `Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager`
-- Objetos de valor: `src/Objects/Trello/{Board, BoardList, Card, Action}`
+- Objects: `src/Objects/Trello/{Board, BoardList, Card, Action}`
 
-## Operações
-- Busca de boards, listas e cards
-- Helpers de card: criar, renomear, mover, atualizar descrição, arquivar
-- Comentários (usado para registrar mensagens do WhatsApp / resoluções)
-- Labels e custom fields (campos personalizados)
+## Supported Operations
+- Fetch boards, lists, and cards
+- Card helpers: create, rename, move, update description, archive
+- Comments (used to log messages or resolutions)
+- Labels and custom fields
 
-## Regras de orquestração
-- `bug_report`: atualiza card similar existente (comenta) ou cria um novo
-- `bug_fixed`: comenta com a resolução e arquiva
-- `feature_request`: cria um novo card
+## Orchestration Rules
+- `bug_report`: update an existing matching card (comment) or create a new one
+- `bug_fixed`: comment with resolution and archive
+- `feature_request`: create a new card
 
-## Configuração
-- Defina `TASK_TRACKER_DRIVER=trello`
-- Defina `TRELLO_KEY`, `TRELLO_TOKEN`, `TRELLO_BOARD_ID`, `TRELLO_LIST_ID`
+## Configuration
+Set these environment variables (see [Configuration](configuration.md)):
+- `TASK_TRACKER_DRIVER=trello`
+- `TRELLO_KEY`
+- `TRELLO_TOKEN`
+- `TRELLO_BOARD_ID`
+- `TRELLO_LIST_ID`
+
+## Related Docs
+- [Task Managers](task-managers.md)
+- [AI Intent Analysis](ai.md)

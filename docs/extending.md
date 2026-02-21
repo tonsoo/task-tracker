@@ -1,7 +1,9 @@
-# Estendendo o Pacote
+# Extending the Package
 
-## Substituir o cliente LLM
-Implemente um `AiDriver` e registre no config.
+This page covers the main extension points: AI drivers, messaging drivers, orchestration, and task backends.
+
+## Replace the LLM Client
+Implement `AiDriver` and register it in config:
 
 ```php
 use Tonso\TaskTracker\Contracts\AiDriver;
@@ -26,21 +28,18 @@ class MyAiDriver implements AiDriver
 ],
 ```
 
-## Adicionar um novo driver de mensageria
-Implemente `MessagingDriver` e converta o payload da sua plataforma em DTOs `IncomingMessage`. Registre o driver no config em `messaging.drivers`.
+## Add a New Messaging Driver
+Implement `MessagingDriver` and map the payload to `IncomingMessage[]`. Register it under `messaging.drivers`.
 
-## Customizar a orquestração
-Estenda ou decore `TaskOrchestrator` para alterar as regras de roteamento de `bug_report`, `feature_request` ou `bug_fixed`.
+## Customize Orchestration
+Decorate or replace `TaskOrchestrator` if you need different routing logic for `bug_report`, `feature_request`, or `bug_fixed`.
 
-## Criar uma nova integracao de tarefas
-Implemente o contrato `TaskDriver` e retorne um `TaskManager`. Registre a classe no config.
+## Create a New Task Integration
+Implement `TaskDriver` and return a `TaskManager`:
 
 ```php
 use Tonso\TaskTracker\Contracts\TaskDriver;
 use Tonso\TaskTracker\Contracts\TaskManager;
-use Tonso\TaskTracker\AI\DTO\StructuredIntent;
-use Tonso\TaskTracker\Objects\Task\TaskItem;
-use Illuminate\Support\Collection;
 
 class MyTaskDriver implements TaskDriver
 {
@@ -51,7 +50,7 @@ class MyTaskDriver implements TaskDriver
 }
 ```
 
-No arquivo `config/task-tracker.php`:
+Register it in `config/task-tracker.php`:
 
 ```php
 'task_driver' => 'custom',
@@ -61,3 +60,8 @@ No arquivo `config/task-tracker.php`:
     ],
 ],
 ```
+
+## Related Docs
+- [Task Managers](task-managers.md)
+- [Messaging Adapters](adapters.md)
+- [AI Intent Analysis](ai.md)

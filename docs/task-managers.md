@@ -1,38 +1,54 @@
-# Gerenciadores de Tarefas
+# Task Managers
 
-O Task Tracker suporta multiplas integracoes via o contrato `TaskManager`. O Trello e fornecido por padrao.
+Task Tracker supports multiple task backends through the `TaskManager` contract. Trello is the default implementation.
 
-## Selecionar o driver
-No `config/task-tracker.php`:
-
+## Select the Driver
+In `config/task-tracker.php`:
 ```php
 'task_driver' => env('TASK_TRACKER_DRIVER', 'trello'),
 ```
 
-## Registrar um driver customizado
-Crie uma classe que implemente `TaskDriver` e retorne um `TaskManager`:
+## Register a Custom Driver
+Create a class that implements `TaskDriver` and returns a `TaskManager`:
 
 ```php
 'task_drivers' => [
     'custom' => [
-        'driver' => App\\Integrations\\MyTaskDriver::class,
+        'driver' => App\Integrations\MyTaskDriver::class,
     ],
 ],
 ```
 
-## Contrato esperado
-Um `TaskDriver` deve criar um `TaskManager`. Um `TaskManager` deve:
-- Listar tarefas existentes (`tasks`)
-- Criar tarefas (`createTask`)
-- Atualizar tarefas existentes com contexto (`updateTask`)
-- Fechar tarefas (`closeTask`)
-- Informar identidade canonica (`extractCanonical`)
-- Fornecer dados simples para deduplicacao via IA (`toSlimArray`)
+## Required Contract Behavior
+A `TaskManager` must:
+- List existing tasks (`tasks`)
+- Create tasks (`createTask`)
+- Update tasks with context (`updateTask`)
+- Close tasks (`closeTask`)
+- Return canonical identity (`extractCanonical`)
+- Provide slim data for AI de-duplication (`toSlimArray`)
 
-O `toSlimArray` deve retornar ao menos:
-`id`, `title`, `summary`.
+`toSlimArray` must include at least: `id`, `title`, `summary`.
 
-## Implementacao Trello (padrao)
+## Trello Implementation (Default)
 - Driver: `Tonso\TaskTracker\Integrations\Trello\TrelloDriver`
 - Manager: `Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager`
-- Configuracao: `task_drivers.trello.*`
+- Config: `task_drivers.trello.*`
+
+## Using Alternate Credentials (Per Call)
+Use `TaskManagerFactory` when you need different credentials for a specific use case without changing global config:
+
+```php
+use Tonso\TaskTracker\Services\Task\TaskManagerFactory;
+
+$manager = app(TaskManagerFactory::class)->make([
+    'key' => 'ALT_TRELLO_KEY',
+    'token' => 'ALT_TRELLO_TOKEN',
+    'board_id' => 'ALT_BOARD_ID',
+    'default_list_id' => 'ALT_LIST_ID',
+]);
+```
+
+## Related Docs
+- [Trello Integration](trello.md)
+- [Extending the Package](extending.md)

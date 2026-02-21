@@ -1,23 +1,39 @@
-# Análise de Intenção por IA
+# AI Intent Analysis
 
+The AI layer turns raw messages into structured intents used by the task orchestrator.
+
+## Key Classes
 - Analyzer: `Tonso\TaskTracker\AI\AiIntentAnalyzer`
-- Contrato do cliente: `Tonso\TaskTracker\AI\Contracts\LLMClient`
-- Cliente padrão: `Tonso\TaskTracker\AI\Clients\OpenAILLMClient`
+- LLM client contract: `Tonso\TaskTracker\AI\Contracts\LLMClient`
+- Default client: `Tonso\TaskTracker\AI\Clients\OpenAILLMClient`
 
-## Extração de intenção
-`AiIntentAnalyzer::analyze($message)` monta um prompt estruturado e espera JSON como retorno. Devolve `StructuredIntent` com:
-- `type`: `bug_report | feature_request | bug_fixed | unknown`
-- `title`
-- `description` (pode ser nulo)
-- `steps_to_reproduce` (array)
-- `tags` (array)
-- `resolution` (pode ser nulo)
-- `canonical` (objeto com `object` e `action`)
+## Single vs Flexible Extraction
+- `AiIntentAnalyzer::analyze($message)`
+  - Always returns exactly one `StructuredIntent`.
+- `AiIntentAnalyzer::analyzeFlexible($message)`
+  - Lets the model decide if the input contains **zero, one, or many tasks**.
+  - Returns an array of `StructuredIntent`.
 
-## Checagem de similaridade
-`AiIntentAnalyzer::findMatchInBatch($newIntent, $candidates)` retorna `{ match, task_id, confidence, reason }`, usado pelo `TaskOrchestrator` para decidir se atualiza uma tarefa existente.
+Use `analyzeFlexible()` for real-world messages that may include multiple issues or none at all.
 
-## Configuração
-- Driver via `ai.driver`
-- Modelo e chave via `ai.drivers.openai.*`
-- Limiares: `ai.similarity_threshold`
+## Batch Extraction (with Context)
+`AiIntentAnalyzer::analyzeBatch($context)`
+- Used for processing many messages together
+- The prompt understands `[ALREADY SAVED]` and `[NEW]` markers
+- Returns an array of tasks in a `{ "tasks": [...] }` JSON payload
+
+## De-duplication
+`AiIntentAnalyzer::findMatchInBatch($newIntent, $candidates)` returns:
+```json
+{ "match": true, "task_id": "...", "confidence": 0.91, "reason": "..." }
+```
+This is used by `TaskOrchestrator` to decide whether to update an existing task or create a new one.
+
+## Configuration
+- Driver: `ai.driver`
+- OpenAI config: `ai.drivers.openai.*`
+- Threshold: `ai.similarity_threshold`
+
+## Related Docs
+- [Task Managers](task-managers.md)
+- [Usage](usage.md)

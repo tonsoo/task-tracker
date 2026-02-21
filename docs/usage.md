@@ -1,18 +1,28 @@
-# Uso
+# Usage
 
-## Endpoints de webhook
-- GET `/webhooks/messaging/{driver}` → verificação (dependente do driver)
-- POST `/webhooks/messaging/{driver}` → eventos de mensagem
+This section explains the runtime flow and how to interact with the webhook endpoints.
 
-## Fluxo de processamento
-1. `MessagingWebhookController@ingest` interpreta o payload via o driver configurado
-2. Despacha `ProcessIncomingMessageJob` por mensagem
-3. `ProcessIncomingMessage` → `AiIntentAnalyzer` → `StructuredIntent`
-4. `TaskOrchestrator` aplica regras de negócio usando o `TaskManager` configurado
+## Webhook Endpoints
+- `GET /webhooks/messaging/{driver}`: verification (driver-specific)
+- `POST /webhooks/messaging/{driver}`: message ingestion
 
-## Fila
-- Garanta um worker rodando: `php artisan queue:work`
-- `ProcessIncomingMessageJob` usa um lock curto com base no `messageId` (quando houver) para idempotência
+## Processing Flow
+1. `MessagingWebhookController@ingest` receives the payload
+2. The configured driver converts it to `IncomingMessage` items
+3. Each message is processed by `ProcessIncomingMessage`
+4. `AiIntentAnalyzer` extracts one or more `StructuredIntent` objects
+5. `TaskOrchestrator` creates, updates, or closes tasks
 
-## Enviar respostas (opcional)
-- Use `Tonso\TaskTracker\Services\WhatsappService::sendMessage($message, $to)` com seu `from.id` configurado
+## Queue
+- Run a worker: `php artisan queue:work`
+- Each message is processed in a job (`ProcessIncomingMessageJob`)
+- The job uses a short lock (when a message ID exists) to avoid duplicates
+
+## Sending Responses (Optional)
+Use the WhatsApp service if you need to send responses:
+- `Tonso\TaskTracker\Services\WhatsappService::sendMessage($message, $to)`
+
+## Related Docs
+- [HTTP & Webhooks](http-webhooks.md)
+- [AI Intent Analysis](ai.md)
+- [Task Managers](task-managers.md)

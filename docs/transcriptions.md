@@ -1,30 +1,35 @@
-# Transcricoes de Reunioes
+# Meeting Transcriptions
 
-Este fluxo recebe transcricoes por webhook, consolida o texto e dispara a analise por IA para gerar tarefas no gerenciador configurado.
+This flow accepts meeting transcriptions via webhook, consolidates them, and triggers AI analysis to create tasks.
 
 ## Endpoint
-- POST `/webhooks/transcribe/{meetingId}`
-- Autenticacao: Bearer token igual a `TRANSCRIBER_SECRET_KEY`
+- `POST /webhooks/transcribe/{meetingId}`
+- Auth: Bearer token must match `TRANSCRIBER_SECRET_KEY`
 
-## Payload esperado
+## Expected Payload
 ```json
 {
   "endedAt": "2025-12-19T12:34:56Z",
   "transcript": [
-    { "timestamp": "2025-12-19T12:30:01Z", "text": "Texto 1" },
-    { "timestamp": "2025-12-19T12:30:08Z", "text": "Texto 2" }
+    { "timestamp": "2025-12-19T12:30:01Z", "text": "Text 1" },
+    { "timestamp": "2025-12-19T12:30:08Z", "text": "Text 2" }
   ]
 }
 ```
 
-## Como funciona
-- O controller consolida as mensagens usando `timestamp` + `text` como chave de deduplicacao.
-- Itens novos entram com `processed = false`. Itens ja processados permanecem com `processed = true`.
-- Quando um meeting fica inativo por X minutos, o comando `task-tracker:monitor-idle` enfileira o processamento.
+## How It Works
+- The controller consolidates messages using `timestamp + text` as a de-duplication key
+- New items are stored with `processed = false`
+- Already-processed items remain `processed = true`
+- When a meeting stays idle for a configured time, `task-tracker:monitor-idle` enqueues processing
 
-## Agendamento
-O comando `task-tracker:monitor-idle` roda a cada 30 segundos via scheduler do Laravel. Garanta que o scheduler esteja ativo (cron chamando `php artisan schedule:run`).
+## Scheduling
+The command `task-tracker:monitor-idle` runs every 30 seconds via Laravel scheduler. Ensure your scheduler is active (cron calling `php artisan schedule:run`).
 
-## Comportamento de idempotencia
-- Mensagens ja processadas nao sao reenviadas para a IA.
-- Isso evita criacao de cards duplicados quando o mesmo meeting e processado mais de uma vez.
+## Idempotency
+- Already processed messages are not re-sent to the AI
+- Prevents duplicate cards when the same meeting is processed multiple times
+
+## Related Docs
+- [Usage](usage.md)
+- [AI Intent Analysis](ai.md)
