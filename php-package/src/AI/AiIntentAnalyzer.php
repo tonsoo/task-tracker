@@ -24,6 +24,27 @@ final class AiIntentAnalyzer
 
         return StructuredIntent::fromArray($data);
     }
+
+    /**
+     * Decide if the message contains zero, one or many tasks.
+     * Uses the batch prompt to let the model decide how to split.
+     *
+     * @return array<StructuredIntent>
+     */
+    public function analyzeFlexible(string $message): array
+    {
+        $json = $this->llm->analyzeIntent(
+            systemPrompt: $this->batchSystemPrompt(),
+            userMessage: $message
+        );
+
+        $data = json_decode($json, true, flags: JSON_THROW_ON_ERROR);
+
+        return array_map(
+            fn($item) => StructuredIntent::fromArray($item),
+            $data['tasks'] ?? []
+        );
+    }
     public function analyzeBatch(string $context): array
     {
         $json = $this->llm->analyzeIntent(

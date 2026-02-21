@@ -14,8 +14,10 @@ final class ProcessIncomingMessage
 
     public function handle(string $message): void
     {
-        $intent = $this->ai->analyze($message);
+        $intents = $this->ai->analyzeFlexible($message);
 
-        $this->orchestrator->handle($intent);
+        foreach ($intents as $intent) {
+            $this->orchestrator->handle($intent);
+        }
     }
 }
