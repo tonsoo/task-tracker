@@ -5,7 +5,7 @@ All notable changes to this project are documented here.
 ## [Unreleased]
 
 ### Added
-- Documentation hub at `docs/README.md` with a full, categorized table of contents.
+- Documentation hub at `glossary.md` with a full, categorized table of contents.
 - New docs structure under `docs/` with grouped sections:
   - `concepts/`, `drivers/`, `ai/`, `integrations/`, `recipes/`.
 - New conceptual guides:
