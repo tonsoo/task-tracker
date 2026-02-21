@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\AI\Contracts;
+namespace Tonsoo\TaskTracker\AI\Contracts;
 
 interface LLMClient
 {

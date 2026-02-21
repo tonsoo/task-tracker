@@ -15,7 +15,7 @@ Um pacote Laravel que transforma mensagens recebidas do WhatsApp em tarefas acio
 ## Início Rápido
 1. **Instalação**
 ```bash
-composer require tonso/task-tracker
+composer require tonsoo/task-tracker
 ```
 
 2. **Publicar configuração**

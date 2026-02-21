@@ -1,10 +1,10 @@
 <?php
 
-namespace Tonso\TaskTracker\Contracts;
+namespace Tonsoo\TaskTracker\Contracts;
 
 use Illuminate\Support\Collection;
-use Tonso\TaskTracker\AI\DTO\StructuredIntent;
-use Tonso\TaskTracker\Objects\Task\TaskItem;
+use Tonsoo\TaskTracker\AI\DTO\StructuredIntent;
+use Tonsoo\TaskTracker\Objects\Task\TaskItem;
 
 interface TaskManager
 {

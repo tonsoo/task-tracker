@@ -10,7 +10,7 @@ return [
                 /**
                  * The messaging driver class.
                  */
-                'driver' => Tonso\TaskTracker\Messaging\Drivers\WhatsAppDriver::class,
+                'driver' => Tonsoo\TaskTracker\Messaging\Drivers\WhatsAppDriver::class,
 
                 /**
                  * The token from whatsapp api
@@ -44,7 +44,7 @@ return [
             /**
              * The task driver class.
              */
-            'driver' => Tonso\TaskTracker\Integrations\Trello\TrelloDriver::class,
+            'driver' => Tonsoo\TaskTracker\Integrations\Trello\TrelloDriver::class,
 
             /**
              * Key for your trello account
@@ -85,7 +85,7 @@ return [
                 /**
                  * The AI driver class.
                  */
-                'driver' => Tonso\TaskTracker\AI\Drivers\OpenAIDriver::class,
+                'driver' => Tonsoo\TaskTracker\AI\Drivers\OpenAIDriver::class,
 
                 /**
                  * Api key for open api, can be found here: https://platform.openai.com/api-keys

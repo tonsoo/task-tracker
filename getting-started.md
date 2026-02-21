@@ -10,7 +10,7 @@ This guide gets you from zero to a working installation with Trello + WhatsApp.
 ## Steps
 1. Install the package
 ```bash
-composer require tonso/task-tracker
+composer require tonsoo/task-tracker
 ```
 
 2. Publish config

@@ -3,9 +3,9 @@
 The AI layer turns raw messages into structured intents used by the task orchestrator.
 
 ## Key Classes
-- Analyzer: `Tonso\TaskTracker\AI\AiIntentAnalyzer`
-- LLM client contract: `Tonso\TaskTracker\AI\Contracts\LLMClient`
-- Default client: `Tonso\TaskTracker\AI\Clients\OpenAILLMClient`
+- Analyzer: `Tonsoo\TaskTracker\AI\AiIntentAnalyzer`
+- LLM client contract: `Tonsoo\TaskTracker\AI\Contracts\LLMClient`
+- Default client: `Tonsoo\TaskTracker\AI\Clients\OpenAILLMClient`
 
 ## Single vs Flexible Extraction
 - `AiIntentAnalyzer::analyze($message)`

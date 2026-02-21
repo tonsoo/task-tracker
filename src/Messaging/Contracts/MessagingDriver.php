@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\Messaging\Contracts;
+namespace Tonsoo\TaskTracker\Messaging\Contracts;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -20,7 +20,7 @@ This section explains the runtime flow and how to interact with webhook endpoint
 
 ## Sending Responses (Optional)
 Use the WhatsApp service if you need to send responses:
-- `Tonso\\TaskTracker\\Services\\WhatsappService::sendMessage($message, $to)`
+- `Tonsoo\\TaskTracker\\Services\\WhatsappService::sendMessage($message, $to)`
 
 ## Related Docs
 - [HTTP & Webhooks](../integrations/http-webhooks.md)

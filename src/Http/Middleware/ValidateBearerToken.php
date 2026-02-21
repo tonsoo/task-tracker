@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\Http\Middleware;
+namespace Tonsoo\TaskTracker\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

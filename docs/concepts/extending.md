@@ -6,8 +6,8 @@ This page covers the main extension points: AI drivers, messaging drivers, orche
 Implement `AiDriver` and register it in config:
 
 ```php
-use Tonso\TaskTracker\Contracts\AiDriver;
-use Tonso\TaskTracker\AI\Contracts\LLMClient;
+use Tonsoo\TaskTracker\Contracts\AiDriver;
+use Tonsoo\TaskTracker\AI\Contracts\LLMClient;
 
 class MyAiDriver implements AiDriver
 {
@@ -38,8 +38,8 @@ Decorate or replace `TaskOrchestrator` if you need different routing logic for `
 Implement `TaskDriver` and return a `TaskManager`:
 
 ```php
-use Tonso\TaskTracker\Contracts\TaskDriver;
-use Tonso\TaskTracker\Contracts\TaskManager;
+use Tonsoo\TaskTracker\Contracts\TaskDriver;
+use Tonsoo\TaskTracker\Contracts\TaskManager;
 
 class MyTaskDriver implements TaskDriver
 {

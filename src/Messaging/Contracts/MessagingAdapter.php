@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\Messaging\Contracts;
+namespace Tonsoo\TaskTracker\Messaging\Contracts;
 
 interface MessagingAdapter
 {

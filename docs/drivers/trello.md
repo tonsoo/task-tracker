@@ -3,8 +3,8 @@
 The Trello integration provides a `TaskManager` backed by Trello boards, lists, and cards.
 
 ## Key Classes
-- Service: `Tonso\TaskTracker\Services\Trello\TrelloService`
-- Task manager: `Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager`
+- Service: `Tonsoo\TaskTracker\Services\Trello\TrelloService`
+- Task manager: `Tonsoo\TaskTracker\Integrations\Trello\TrelloTaskManager`
 - Objects: `src/Objects/Trello/{Board, BoardList, Card, Action}`
 
 ## Supported Operations

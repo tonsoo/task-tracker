@@ -4,7 +4,7 @@ Use this when you need to run a one-off flow with different Trello credentials w
 
 ## Example
 ```php
-use Tonso\TaskTracker\Services\Task\TaskManagerFactory;
+use Tonsoo\TaskTracker\Services\Task\TaskManagerFactory;
 
 $manager = app(TaskManagerFactory::class)->make([
     'key' => 'ALT_TRELLO_KEY',

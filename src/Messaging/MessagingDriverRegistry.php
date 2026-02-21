@@ -1,9 +1,9 @@
 <?php
 
-namespace Tonso\TaskTracker\Messaging;
+namespace Tonsoo\TaskTracker\Messaging;
 
 use Illuminate\Contracts\Container\Container;
-use Tonso\TaskTracker\Messaging\Contracts\MessagingDriver;
+use Tonsoo\TaskTracker\Messaging\Contracts\MessagingDriver;
 
 final class MessagingDriverRegistry
 {

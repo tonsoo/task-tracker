@@ -1,10 +1,10 @@
 <?php
 
-namespace Tonso\TaskTracker\UseCases;
+namespace Tonsoo\TaskTracker\UseCases;
 
-use Tonso\TaskTracker\AI\AiIntentAnalyzer;
-use Tonso\TaskTracker\Models\IncomingMessage;
-use Tonso\TaskTracker\Services\Task\TaskOrchestrator;
+use Tonsoo\TaskTracker\AI\AiIntentAnalyzer;
+use Tonsoo\TaskTracker\Models\IncomingMessage;
+use Tonsoo\TaskTracker\Services\Task\TaskOrchestrator;
 
 final class ProcessMessageBatch
 {

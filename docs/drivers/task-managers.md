@@ -31,8 +31,8 @@ A `TaskManager` must:
 `toSlimArray` must include at least: `id`, `title`, `summary`.
 
 ## Trello Implementation (Default)
-- Driver: `Tonso\TaskTracker\Integrations\Trello\TrelloDriver`
-- Manager: `Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager`
+- Driver: `Tonsoo\TaskTracker\Integrations\Trello\TrelloDriver`
+- Manager: `Tonsoo\TaskTracker\Integrations\Trello\TrelloTaskManager`
 - Config: `task_drivers.trello.*`
 
 ## Related Docs

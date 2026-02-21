@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonso\TaskTracker\Messaging\Drivers;
+namespace Tonsoo\TaskTracker\Messaging\Drivers;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter;
-use Tonso\TaskTracker\Messaging\Contracts\MessagingDriver;
+use Tonsoo\TaskTracker\Messaging\Adapters\WhatsAppAdapter;
+use Tonsoo\TaskTracker\Messaging\Contracts\MessagingDriver;
 
 final class WhatsAppDriver implements MessagingDriver
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Tonso\TaskTracker\Contracts;
+namespace Tonsoo\TaskTracker\Contracts;
 
-use Tonso\TaskTracker\AI\Contracts\LLMClient;
+use Tonsoo\TaskTracker\AI\Contracts\LLMClient;
 
 interface AiDriver
 {

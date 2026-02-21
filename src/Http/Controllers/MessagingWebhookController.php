@@ -1,12 +1,12 @@
 <?php
 
-namespace Tonso\TaskTracker\Http\Controllers;
+namespace Tonsoo\TaskTracker\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
-use Tonso\TaskTracker\Messaging\MessagingDriverRegistry;
-use Tonso\TaskTracker\Models\IncomingMessage;
+use Tonsoo\TaskTracker\Messaging\MessagingDriverRegistry;
+use Tonsoo\TaskTracker\Models\IncomingMessage;
 
 class MessagingWebhookController extends Controller
 {

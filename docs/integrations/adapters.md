@@ -3,10 +3,10 @@
 Messaging drivers translate platform-specific payloads into `IncomingMessage` DTOs. Some platforms require an adapter layer to normalize the payload before the driver produces `IncomingMessage` records.
 
 ## Core Interfaces
-- Driver contract: `Tonso\TaskTracker\Messaging\Contracts\MessagingDriver`
-- Adapter contract: `Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter`
-- Built-in driver: `Tonso\TaskTracker\Messaging\Drivers\WhatsAppDriver`
-- Built-in adapter: `Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter`
+- Driver contract: `Tonsoo\TaskTracker\Messaging\Contracts\MessagingDriver`
+- Adapter contract: `Tonsoo\TaskTracker\Messaging\Contracts\MessagingAdapter`
+- Built-in driver: `Tonsoo\TaskTracker\Messaging\Drivers\WhatsAppDriver`
+- Built-in adapter: `Tonsoo\TaskTracker\Messaging\Adapters\WhatsAppAdapter`
 
 ## WhatsApp Driver Behavior
 - Iterates `entry[].changes[].value.messages[]`
@@ -19,7 +19,7 @@ namespace App\Messaging\Drivers;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tonso\TaskTracker\Messaging\Contracts\MessagingDriver;
+use Tonsoo\TaskTracker\Messaging\Contracts\MessagingDriver;
 
 final class TelegramDriver implements MessagingDriver
 {

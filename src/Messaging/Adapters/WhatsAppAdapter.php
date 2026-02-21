@@ -1,8 +1,8 @@
 <?php
 
-namespace Tonso\TaskTracker\Messaging\Adapters;
+namespace Tonsoo\TaskTracker\Messaging\Adapters;
 
-use Tonso\TaskTracker\Messaging\Contracts\MessagingAdapter;
+use Tonsoo\TaskTracker\Messaging\Contracts\MessagingAdapter;
 
 final class WhatsAppAdapter implements MessagingAdapter
 {

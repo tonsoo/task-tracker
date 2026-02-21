@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonso\TaskTracker\Integrations\Trello;
+namespace Tonsoo\TaskTracker\Integrations\Trello;
 
 use Stevenmaguire\Services\Trello\Client;
-use Tonso\TaskTracker\Contracts\TaskDriver;
-use Tonso\TaskTracker\Contracts\TaskManager;
-use Tonso\TaskTracker\Services\Trello\TrelloService;
+use Tonsoo\TaskTracker\Contracts\TaskDriver;
+use Tonsoo\TaskTracker\Contracts\TaskManager;
+use Tonsoo\TaskTracker\Services\Trello\TrelloService;
 
 final class TrelloDriver implements TaskDriver
 {

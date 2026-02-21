@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\Models;
+namespace Tonsoo\TaskTracker\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

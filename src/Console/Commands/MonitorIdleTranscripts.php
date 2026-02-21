@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonso\TaskTracker\Console\Commands;
+namespace Tonsoo\TaskTracker\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Tonso\TaskTracker\Jobs\ProcessCompleteTranscript;
-use Tonso\TaskTracker\Models\Transcript;
+use Tonsoo\TaskTracker\Jobs\ProcessCompleteTranscript;
+use Tonsoo\TaskTracker\Models\Transcript;
 use Carbon\Carbon;
 
 class MonitorIdleTranscripts extends Command

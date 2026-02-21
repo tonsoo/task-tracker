@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonso\TaskTracker\AI;
+namespace Tonsoo\TaskTracker\AI;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
-use Tonso\TaskTracker\AI\Contracts\LLMClient;
-use Tonso\TaskTracker\AI\DTO\StructuredIntent;
+use Tonsoo\TaskTracker\AI\Contracts\LLMClient;
+use Tonsoo\TaskTracker\AI\DTO\StructuredIntent;
 
 final class AiIntentAnalyzer
 {

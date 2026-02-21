@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\Jobs;
+namespace Tonsoo\TaskTracker\Jobs;
 
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -9,8 +9,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Tonso\TaskTracker\Models\Transcript;
-use Tonso\TaskTracker\UseCases\ProcessTranscript;
+use Tonsoo\TaskTracker\Models\Transcript;
+use Tonsoo\TaskTracker\UseCases\ProcessTranscript;
 
 class ProcessCompleteTranscript implements ShouldQueue
 {

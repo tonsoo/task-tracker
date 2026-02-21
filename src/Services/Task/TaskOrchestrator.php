@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonso\TaskTracker\Services\Task;
+namespace Tonsoo\TaskTracker\Services\Task;
 
-use Tonso\TaskTracker\AI\AiIntentAnalyzer;
-use Tonso\TaskTracker\AI\DTO\StructuredIntent;
-use Tonso\TaskTracker\Contracts\TaskManager;
-use Tonso\TaskTracker\Objects\Task\TaskItem;
+use Tonsoo\TaskTracker\AI\AiIntentAnalyzer;
+use Tonsoo\TaskTracker\AI\DTO\StructuredIntent;
+use Tonsoo\TaskTracker\Contracts\TaskManager;
+use Tonsoo\TaskTracker\Objects\Task\TaskItem;
 
 final class TaskOrchestrator
 {

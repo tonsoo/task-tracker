@@ -1,10 +1,10 @@
 <?php
 
-namespace Tonso\TaskTracker\Http\Controllers;
+namespace Tonsoo\TaskTracker\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Tonso\TaskTracker\Models\Transcript;
+use Tonsoo\TaskTracker\Models\Transcript;
 
 class TranscriptController extends Controller
 {

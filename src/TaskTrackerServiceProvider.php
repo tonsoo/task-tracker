@@ -1,22 +1,22 @@
 <?php
 
-namespace Tonso\TaskTracker;
+namespace Tonsoo\TaskTracker;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
-use Tonso\TaskTracker\AI\AiIntentAnalyzer;
-use Tonso\TaskTracker\AI\Contracts\LLMClient;
-use Tonso\TaskTracker\Console\Commands\MonitorIdleTranscripts;
-use Tonso\TaskTracker\Contracts\AiDriver;
-use Tonso\TaskTracker\Contracts\TaskDriver;
-use Tonso\TaskTracker\Contracts\TaskManager;
-use Tonso\TaskTracker\Jobs\ProcessMessageBatchJob;
-use Tonso\TaskTracker\Messaging\Adapters\WhatsAppAdapter;
-use Tonso\TaskTracker\Messaging\MessagingDriverRegistry;
-use Tonso\TaskTracker\Models\IncomingMessage;
-use Tonso\TaskTracker\Services\Task\TaskOrchestrator;
-use Tonso\TaskTracker\Services\WhatsappService;
-use Tonso\TaskTracker\UseCases\ProcessIncomingMessage;
+use Tonsoo\TaskTracker\AI\AiIntentAnalyzer;
+use Tonsoo\TaskTracker\AI\Contracts\LLMClient;
+use Tonsoo\TaskTracker\Console\Commands\MonitorIdleTranscripts;
+use Tonsoo\TaskTracker\Contracts\AiDriver;
+use Tonsoo\TaskTracker\Contracts\TaskDriver;
+use Tonsoo\TaskTracker\Contracts\TaskManager;
+use Tonsoo\TaskTracker\Jobs\ProcessMessageBatchJob;
+use Tonsoo\TaskTracker\Messaging\Adapters\WhatsAppAdapter;
+use Tonsoo\TaskTracker\Messaging\MessagingDriverRegistry;
+use Tonsoo\TaskTracker\Models\IncomingMessage;
+use Tonsoo\TaskTracker\Services\Task\TaskOrchestrator;
+use Tonsoo\TaskTracker\Services\WhatsappService;
+use Tonsoo\TaskTracker\UseCases\ProcessIncomingMessage;
 
 class TaskTrackerServiceProvider extends ServiceProvider
 {

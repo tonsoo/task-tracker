@@ -9,8 +9,8 @@ Set these environment variables (see [Configuration](../concepts/configuration.m
 - `OPENAI_MODEL` (default: `gpt-4.1-mini`)
 
 ## Driver Classes
-- Driver: `Tonso\TaskTracker\AI\Drivers\OpenAIDriver`
-- Client: `Tonso\TaskTracker\AI\Clients\OpenAILLMClient`
+- Driver: `Tonsoo\TaskTracker\AI\Drivers\OpenAIDriver`
+- Client: `Tonsoo\TaskTracker\AI\Clients\OpenAILLMClient`
 
 ## Behavior
 - Builds prompts via `AiIntentAnalyzer`

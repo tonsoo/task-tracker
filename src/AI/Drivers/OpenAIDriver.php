@@ -1,10 +1,10 @@
 <?php
 
-namespace Tonso\TaskTracker\AI\Drivers;
+namespace Tonsoo\TaskTracker\AI\Drivers;
 
-use Tonso\TaskTracker\AI\Clients\OpenAILLMClient;
-use Tonso\TaskTracker\AI\Contracts\LLMClient;
-use Tonso\TaskTracker\Contracts\AiDriver;
+use Tonsoo\TaskTracker\AI\Clients\OpenAILLMClient;
+use Tonsoo\TaskTracker\AI\Contracts\LLMClient;
+use Tonsoo\TaskTracker\Contracts\AiDriver;
 
 final class OpenAIDriver implements AiDriver
 {

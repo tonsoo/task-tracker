@@ -1,9 +1,9 @@
 <?php
 
-namespace Tonso\TaskTracker\AI\Clients;
+namespace Tonsoo\TaskTracker\AI\Clients;
 
 use OpenAI;
-use Tonso\TaskTracker\AI\Contracts\LLMClient;
+use Tonsoo\TaskTracker\AI\Contracts\LLMClient;
 
 final class OpenAILLMClient implements LLMClient
 {

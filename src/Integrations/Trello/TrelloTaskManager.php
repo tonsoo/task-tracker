@@ -1,14 +1,14 @@
 <?php
 
-namespace Tonso\TaskTracker\Integrations\Trello;
+namespace Tonsoo\TaskTracker\Integrations\Trello;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Tonso\TaskTracker\AI\DTO\StructuredIntent;
-use Tonso\TaskTracker\Contracts\TaskManager;
-use Tonso\TaskTracker\Objects\Task\TaskItem;
-use Tonso\TaskTracker\Objects\Trello\Card;
-use Tonso\TaskTracker\Services\Trello\TrelloService;
+use Tonsoo\TaskTracker\AI\DTO\StructuredIntent;
+use Tonsoo\TaskTracker\Contracts\TaskManager;
+use Tonsoo\TaskTracker\Objects\Task\TaskItem;
+use Tonsoo\TaskTracker\Objects\Trello\Card;
+use Tonsoo\TaskTracker\Services\Trello\TrelloService;
 
 final class TrelloTaskManager implements TaskManager
 {

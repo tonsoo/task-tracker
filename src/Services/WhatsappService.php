@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\Services;
+namespace Tonsoo\TaskTracker\Services;
 
 use GuzzleHttp\Client;
 

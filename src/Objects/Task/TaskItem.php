@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\Objects\Task;
+namespace Tonsoo\TaskTracker\Objects\Task;
 
 final class TaskItem
 {

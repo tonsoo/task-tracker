@@ -15,10 +15,10 @@ Task Tracker is built around a small set of concepts: **messages**, **intents**,
 4. The orchestrator de-duplicates and applies task actions
 
 ## Key Classes
-- `Tonso\TaskTracker\Messaging\Contracts\MessagingDriver`
-- `Tonso\TaskTracker\AI\AiIntentAnalyzer`
-- `Tonso\TaskTracker\Contracts\TaskManager`
-- `Tonso\TaskTracker\Services\Task\TaskOrchestrator`
+- `Tonsoo\TaskTracker\Messaging\Contracts\MessagingDriver`
+- `Tonsoo\TaskTracker\AI\AiIntentAnalyzer`
+- `Tonsoo\TaskTracker\Contracts\TaskManager`
+- `Tonsoo\TaskTracker\Services\Task\TaskOrchestrator`
 
 ## Where to Go Next
 - [Configuration](configuration.md)

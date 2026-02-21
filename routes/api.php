@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Tonso\TaskTracker\Http\Controllers\MessagingWebhookController;
-use Tonso\TaskTracker\Http\Controllers\TranscriptController;
-use Tonso\TaskTracker\Http\Middleware\ValidateBearerToken;
+use Tonsoo\TaskTracker\Http\Controllers\MessagingWebhookController;
+use Tonsoo\TaskTracker\Http\Controllers\TranscriptController;
+use Tonsoo\TaskTracker\Http\Middleware\ValidateBearerToken;
 
 Route::group(['prefix' => 'webhooks'], function () {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonso\TaskTracker\Contracts;
+namespace Tonsoo\TaskTracker\Contracts;
 
 interface TaskDriver
 {
