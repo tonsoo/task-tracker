@@ -19,7 +19,7 @@ The Trello integration provides a `TaskManager` backed by Trello boards, lists, 
 - `feature_request`: create a new card
 
 ## Configuration
-Set these environment variables (see [Configuration](configuration.md)):
+Set these environment variables (see [Configuration](../concepts/configuration.md)):
 - `TASK_TRACKER_DRIVER=trello`
 - `TRELLO_KEY`
 - `TRELLO_TOKEN`
@@ -28,4 +28,4 @@ Set these environment variables (see [Configuration](configuration.md)):
 
 ## Related Docs
 - [Task Managers](task-managers.md)
-- [AI Intent Analysis](ai.md)
+- [AI Overview](../ai/overview.md)

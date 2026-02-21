@@ -62,6 +62,6 @@ Register it in `config/task-tracker.php`:
 ```
 
 ## Related Docs
-- [Task Managers](task-managers.md)
-- [Messaging Adapters](adapters.md)
-- [AI Intent Analysis](ai.md)
+- [Task Managers](../drivers/task-managers.md)
+- [Messaging Adapters](../integrations/adapters.md)
+- [AI Overview](../ai/overview.md)

@@ -35,20 +35,7 @@ A `TaskManager` must:
 - Manager: `Tonso\TaskTracker\Integrations\Trello\TrelloTaskManager`
 - Config: `task_drivers.trello.*`
 
-## Using Alternate Credentials (Per Call)
-Use `TaskManagerFactory` when you need different credentials for a specific use case without changing global config:
-
-```php
-use Tonso\TaskTracker\Services\Task\TaskManagerFactory;
-
-$manager = app(TaskManagerFactory::class)->make([
-    'key' => 'ALT_TRELLO_KEY',
-    'token' => 'ALT_TRELLO_TOKEN',
-    'board_id' => 'ALT_BOARD_ID',
-    'default_list_id' => 'ALT_LIST_ID',
-]);
-```
-
 ## Related Docs
 - [Trello Integration](trello.md)
-- [Extending the Package](extending.md)
+- [AI Overview](../ai/overview.md)
+- [Extending the Package](../concepts/extending.md)

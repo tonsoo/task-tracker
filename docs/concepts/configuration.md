@@ -1,6 +1,6 @@
 # Configuration
 
-The package reads from `config/task-tracker.php`. Publish it and define the environment variables below.
+The package reads from `config/task-tracker.php`. Publish it and define environment variables below.
 
 ## Environment Variables
 ```env
@@ -39,6 +39,6 @@ TRANSCRIBER_SECRET_KEY=your_token
 - `transcriptions.secret_key`: bearer token for transcript webhook
 
 ## Related Docs
-- [WhatsApp Cloud API Setup](whatsapp-setup.md)
-- [AI Intent Analysis](ai.md)
-- [Task Managers](task-managers.md)
+- [Usage](usage.md)
+- [AI Overview](../ai/overview.md)
+- [Task Managers](../drivers/task-managers.md)

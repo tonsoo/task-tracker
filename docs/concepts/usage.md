@@ -1,6 +1,6 @@
 # Usage
 
-This section explains the runtime flow and how to interact with the webhook endpoints.
+This section explains the runtime flow and how to interact with webhook endpoints.
 
 ## Webhook Endpoints
 - `GET /webhooks/messaging/{driver}`: verification (driver-specific)
@@ -20,9 +20,9 @@ This section explains the runtime flow and how to interact with the webhook endp
 
 ## Sending Responses (Optional)
 Use the WhatsApp service if you need to send responses:
-- `Tonso\TaskTracker\Services\WhatsappService::sendMessage($message, $to)`
+- `Tonso\\TaskTracker\\Services\\WhatsappService::sendMessage($message, $to)`
 
 ## Related Docs
-- [HTTP & Webhooks](http-webhooks.md)
-- [AI Intent Analysis](ai.md)
-- [Task Managers](task-managers.md)
+- [HTTP & Webhooks](../integrations/http-webhooks.md)
+- [AI Overview](../ai/overview.md)
+- [Task Managers](../drivers/task-managers.md)

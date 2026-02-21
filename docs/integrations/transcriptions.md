@@ -31,5 +31,5 @@ The command `task-tracker:monitor-idle` runs every 30 seconds via Laravel schedu
 - Prevents duplicate cards when the same meeting is processed multiple times
 
 ## Related Docs
-- [Usage](usage.md)
-- [AI Intent Analysis](ai.md)
+- [Usage](../concepts/usage.md)
+- [AI Overview](../ai/overview.md)

@@ -19,7 +19,7 @@ This guide helps you configure WhatsApp Cloud API to receive messages and integr
 5. Subscribe to the `messages` field for your `phone_number_id`
 
 ## Environment Variables
-See [Configuration](configuration.md) and add:
+See [Configuration](../concepts/configuration.md) and add:
 ```env
 WHATSAPP_TOKEN=your_whatsapp_token
 WHATSAPP_FROM_NUMBER=15551234567

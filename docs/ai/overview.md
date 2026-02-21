@@ -1,4 +1,4 @@
-# AI Intent Analysis
+# AI Overview
 
 The AI layer turns raw messages into structured intents used by the task orchestrator.
 
@@ -29,11 +29,6 @@ Use `analyzeFlexible()` for real-world messages that may include multiple issues
 ```
 This is used by `TaskOrchestrator` to decide whether to update an existing task or create a new one.
 
-## Configuration
-- Driver: `ai.driver`
-- OpenAI config: `ai.drivers.openai.*`
-- Threshold: `ai.similarity_threshold`
-
 ## Related Docs
-- [Task Managers](task-managers.md)
-- [Usage](usage.md)
+- [OpenAI Driver](openai.md)
+- [Usage](../concepts/usage.md)
