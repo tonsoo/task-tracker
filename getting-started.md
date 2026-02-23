@@ -24,7 +24,7 @@ php artisan migrate
 ```
 
 4. Configure `.env`
-See [Configuration](concepts/configuration.md).
+See [Configuration](docs/concepts/configuration.md).
 
 5. Start the queue worker
 ```bash
@@ -38,8 +38,8 @@ php artisan schedule:run
 ```
 
 7. Set up WhatsApp webhooks
-See [WhatsApp Cloud API Setup](integrations/whatsapp-setup.md).
+See [WhatsApp Cloud API Setup](docs/integrations/whatsapp-setup.md).
 
 ## Next
-- [Usage](concepts/usage.md)
-- [Trello Integration](drivers/trello.md)
+- [Usage](docs/concepts/usage.md)
+- [Trello Integration](docs/drivers/trello.md)

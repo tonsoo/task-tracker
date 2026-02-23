@@ -23,7 +23,7 @@ composer require tonsoo/task-tracker
 php artisan vendor:publish --tag=task-tracker-config
 ```
 
-3. **Variáveis de ambiente** (veja `.env.example` e `docs/configuration.md`)
+3. **Variáveis de ambiente** (veja `.env.example` e `docs/concepts/configuration.md`)
 ```env
 WHATSAPP_TOKEN=...
 WHATSAPP_FROM_NUMBER=...
@@ -81,17 +81,17 @@ php artisan queue:work
    - `feature_request`: cria nova tarefa
 
 ## Documentação
-- **[Visão Geral](docs/overview.md)**
-- **[Instalação](docs/installation.md)**
-- **[Configuração](docs/configuration.md)**
-- **[Uso](docs/usage.md)**
-- **[Transcrições](docs/transcriptions.md)**
-- **[Adapters de Mensageria](docs/adapters.md)**
-- **[Análise de IA](docs/ai.md)**
-- **[Gerenciadores de Tarefas](docs/task-managers.md)**
-- **[Integração com Trello](docs/trello.md)**
-- **[HTTP & Webhooks](docs/http-webhooks.md)**
-- **[Estendendo o Pacote](docs/extending.md)**
+- **[Visão Geral](docs/concepts/overview.md)**
+- **[Instalação](getting-started.md)**
+- **[Configuração](docs/concepts/configuration.md)**
+- **[Uso](docs/concepts/usage.md)**
+- **[Transcrições](docs/integrations/transcriptions.md)**
+- **[Adapters de Mensageria](docs/integrations/adapters.md)**
+- **[Análise de IA](docs/ai/overview.md)**
+- **[Gerenciadores de Tarefas](docs/drivers/task-managers.md)**
+- **[Integração com Trello](docs/drivers/trello.md)**
+- **[HTTP & Webhooks](docs/integrations/http-webhooks.md)**
+- **[Estendendo o Pacote](docs/concepts/extending.md)**
 ## Requisitos
 - PHP 8.2+
 - Laravel 12.x
