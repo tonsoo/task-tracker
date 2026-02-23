@@ -161,7 +161,6 @@ use Illuminate\Support\Facades\Http;
 use Tonsoo\TaskTracker\AI\AiIntentAnalyzer;
 use Tonsoo\TaskTracker\AI\Drivers\OpenAIDriver;
 use Tonsoo\TaskTracker\Integrations\Trello\TrelloDriver;
-use Tonsoo\TaskTracker\Services\Task\TaskOrchestrator;
 use Tonsoo\TaskTracker\UseCases\ProcessIncomingMessage;
 
 final class AudioTranscriptionController
@@ -197,12 +196,12 @@ final class AudioTranscriptionController
 
         // 4. Manual Driver Instantiation
         // We use the drivers to create the necessary Managers and Clients using the runtime inputs.
-        $taskManager = (new TrelloDriver())->makeManager($$trelloInputs);
+        $driver = new TrelloDriver();
         $aiClient = (new OpenAIDriver())->makeClient($openaiInputs);
 
         // 5. Orchestrate the Task Tracker Workflow
         $analyzer = new AiIntentAnalyzer($aiClient);
-        $orchestrator = new TaskOrchestrator($taskManager, $analyzer);
+        $orchestrator = $driver->makeOrchestrator($trelloInputs, $analyzer);
 
         // The Use Case handles the heavy lifting: Analyze Text -> Extract Intent -> Execute Task
         (new ProcessIncomingMessage($analyzer, $orchestrator))->handle($transcript);

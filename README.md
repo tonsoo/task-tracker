@@ -68,7 +68,7 @@ php artisan queue:work
 
 - **Caso de Uso**: `ProcessIncomingMessage` → extrai intenção → delega ao `TaskOrchestrator`
 
-- **Integrações**: `TaskDriver` (cria o manager) + `TaskManager`
+- **Integrações**: `TaskDriver` (cria manager + orchestrator) + `TaskManager`
 
 ## Ciclo (alto nível)
 1. Plataforma envia webhook → `MessagingWebhookController@ingest`

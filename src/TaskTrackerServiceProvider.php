@@ -92,7 +92,18 @@ class TaskTrackerServiceProvider extends ServiceProvider
             return $driver->makeManager($driverConfig);
         });
 
-        $this->app->singleton(TaskOrchestrator::class);
+        $this->app->singleton(TaskOrchestrator::class, function ($app) {
+            $driverKey = config('task-tracker.task_driver', 'trello');
+            $driverConfig = config("task-tracker.task_drivers.$driverKey", []);
+
+            /** @var TaskDriver $driver */
+            $driver = $app->make(TaskDriver::class);
+
+            return $driver->makeOrchestrator(
+                config: $driverConfig,
+                ai: $app->make(AiIntentAnalyzer::class),
+            );
+        });
         $this->app->singleton(WhatsappService::class);
 
         $this->app->singleton(AiIntentAnalyzer::class);

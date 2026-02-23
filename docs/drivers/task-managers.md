@@ -9,7 +9,7 @@ In `config/task-tracker.php`:
 ```
 
 ## Register a Custom Driver
-Create a class that implements `TaskDriver` and returns a `TaskManager`:
+Create a class that implements `TaskDriver` and returns a `TaskManager` plus a `TaskOrchestrator`.
 
 ```php
 'task_drivers' => [
