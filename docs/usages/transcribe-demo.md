@@ -1,4 +1,4 @@
-# 🔊 Audio Transcription
+# Audio Transcription
 
 The `Task Tracker` package is designed to be flexible. While the core package handles the logic of analyzing intent and managing tasks, you can easily build an entry point to handle voice commands.
 
@@ -6,7 +6,7 @@ This document describes the implementation details of the **Transcribe Demo** av
 
 ---
 
-## 🚀 Live Demo Endpoint
+## Live Demo Endpoint
 
 You can test your Trello and OpenAI configurations directly against the demo endpoint:
 
@@ -25,7 +25,7 @@ To ensure availability for everyone, the demo endpoint enforces the following li
 
 ---
 
-## 🛠 Required Headers
+## Required Headers
 
 The endpoint is driver-agnostic. You must tell it which drivers to use and provide the necessary credentials via headers. These values are used at runtime to instantiate the drivers.
 
@@ -38,7 +38,7 @@ The endpoint is driver-agnostic. You must tell it which drivers to use and provi
 
 ---
 
-## 🌐 Using the `/api/transcribe` Demo with Tab Recorder
+## Using the `/api/transcribe` Demo with Tab Recorder
 
 If you want a real-world voice-to-task workflow (Google Meet, Zoom Web, Discord in browser), the easiest and cheapest entry point is to pair the live demo endpoint with my Chrome extension:
 
@@ -55,7 +55,7 @@ This allows you to test the full speech → transcription → intent detection �
 
 ---
 
-### ✅ What This Setup Enables
+### What This Setup Enables
 
 With Tab Recorder + the demo endpoint, the flow becomes:
 
@@ -75,7 +75,7 @@ This is ideal for validating your Trello + OpenAI configuration end-to-end using
 
 ---
 
-## 🔧 Tab Recorder → Demo Endpoint Configuration
+## Tab Recorder → Demo Endpoint Configuration
 
 Open the extension → Settings → Configure Webhook.
 
@@ -91,7 +91,7 @@ Must match the expected request field in the demo route.
 
 ---
 
-## 🎙️ Recording Tips for the Demo
+## Recording Tips for the Demo
 
 The demo endpoint has strict limits:
 
@@ -109,7 +109,7 @@ For best results:
 
 ---
 
-## 🧪 Suggested Test Commands
+## Suggested Test Commands
 
 During a meeting (or even alone in a test tab), record and say:
 
@@ -121,7 +121,7 @@ Stop recording → The extension uploads automatically (if enabled) → The demo
 
 ---
 
-## 🔒 Production Note
+## Production Note
 
 The demo endpoint accepts credentials via headers for flexibility and testing purposes.
 
@@ -134,11 +134,11 @@ In a real production setup, you would typically:
 
 The next section (“Minimal Implementation Guide”) shows how to implement your own `/transcribe` endpoint inside your Laravel application.
 
-## 💻 Minimal Implementation Guide
+## Minimal Implementation Guide
 
 If you want to implement a similar endpoint in your own Laravel application, follow this simplified guide. This example is intentionally kept basic: it is synchronous, uses standard Laravel file storage, and instantiates the drivers manually based on the request inputs.
 
-### 1. Route Definition
+**1. Route Definition**\
 Add the POST route to your `routes/api.php` file.
 
 ```php
@@ -148,7 +148,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/transcribe', [AudioTranscriptionController::class, 'store']);
 ```
 
-### 2. The Controller Implementation
+**2. The Controller Implementation**\
 This controller handles the file upload, validates the media, and orchestrates the Task Tracker logic.
 
 ```php
